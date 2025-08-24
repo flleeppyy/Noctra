@@ -5,7 +5,7 @@
 
 /datum/map_config
 	// Metadata
-	var/config_filename = "_maps/vanderlin.json"
+	var/config_filename = "_maps/rosewood.json"
 	var/defaulted = TRUE  // set to FALSE by LoadConfig() succeeding
 	// Config from maps.txt
 	var/config_max_users = 0
@@ -13,10 +13,10 @@
 	var/voteweight = 1
 	var/votable = FALSE
 
-	// Config actually from the JSON - should default to Vanderlin
-	var/map_name = "Vanderlin"
-	var/map_path = "map_files/vanderlin"
-	var/map_file = "vanderlin.dmm"
+	// Config actually from the JSON - should default to ~~Vanderlin~~ Rosewood for Noctra
+	var/map_name = "Rosewood"
+	var/map_path = "map_files/rosewood"
+	var/map_file = "rosewood.dmm"
 	var/immigrant_origin = "Kingsfield"
 	var/monarch_title = "King"
 	var/monarch_title_f = "Queen"
