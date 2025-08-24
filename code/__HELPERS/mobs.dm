@@ -34,6 +34,11 @@
 /proc/random_underwear(gender)
 	if(!GLOB.underwear_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
+
+	. = "Nude"
+	/*
+	if(prob(50))
+		return
 	switch(gender)
 		if(MALE)
 			return pick(GLOB.underwear_m)
@@ -41,6 +46,7 @@
 			return pick(GLOB.underwear_f)
 		else
 			return pick(GLOB.underwear_list)
+	*/
 
 /proc/random_undershirt(gender)
 	if(!GLOB.undershirt_list.len)
@@ -178,8 +184,9 @@ GLOBAL_LIST_INIT(oldhc, sortList(list(
  * @param {string} interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set. \
  * @param {number} max_interact_count - The maximum amount of interactions allowed. \
  * @param {boolean} hidden - By default, any action 1 second or longer shows a cog over the user while it is in progress. If hidden is set to TRUE, the cog will not be shown.
+ * @param {boolean} display_over_user - By default, the progress bar is displayed over the target if it is defined. If set to TRUE, the bar will be displayed over the user instead
  */
-/proc/do_after(mob/user, delay, atom/target = null, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = 1, hidden = FALSE)
+/proc/do_after(mob/user, delay, atom/target = null, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = 1, hidden = FALSE, display_over_user = FALSE)
 	if(!user)
 		return FALSE
 	if(!isnum(delay))
@@ -216,7 +223,7 @@ GLOBAL_LIST_INIT(oldhc, sortList(list(
 
 	if(progress)
 		if(user.client)
-			progbar = new(user, delay, target || user)
+			progbar = new(user, delay, display_over_user ? user : target || user)
 		if(!hidden && delay >= 1 SECONDS)
 			cog = new(user)
 

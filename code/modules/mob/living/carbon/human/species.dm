@@ -74,6 +74,20 @@ GLOBAL_LIST_EMPTY(patreon_races)
 		OFFSET_UNDIES = list(0,0),\
 	)
 
+	var/list/offset_genitals_m = list(
+		OFFSET_PENIS = list(0,0),\
+		OFFSET_BREASTS = list(0,0),\
+		OFFSET_TESTICLES = list(0,0),\
+		OFFSET_VAGINA = list(0,0),\
+	)
+
+	var/list/offset_genitals_f = list(
+		OFFSET_PENIS = list(0,0),\
+		OFFSET_BREASTS = list(0,0),\
+		OFFSET_TESTICLES = list(0,0),\
+		OFFSET_VAGINA = list(0,0),\
+	)
+
 	/// Type of damage overlay to use
 	var/damage_overlay_type = "human"
 	/// Damage overlays to use for males
@@ -445,8 +459,12 @@ GLOBAL_LIST_EMPTY(patreon_races)
 /datum/species/proc/random_underwear(gender)
 	var/list/spec_undies = get_spec_undies_list(gender)
 	if(LAZYLEN(spec_undies))
+		/* Readd when we have inventory underwear?
 		var/datum/sprite_accessory/underwear = pick(spec_undies)
+
 		return underwear.name
+		*/
+		return "Nude"
 
 /datum/species/proc/regenerate_icons(mob/living/carbon/human/H)
 	return FALSE
@@ -2103,6 +2121,8 @@ GLOBAL_LIST_EMPTY(patreon_races)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)
 
 /datum/species/proc/CanIgniteMob(mob/living/carbon/human/H)
+	if(H.status_flags & GODMODE)
+		return FALSE
 	if(H.divine_fire_stacks > 0) // tieflings can't say no to astrata
 		return TRUE
 	if(HAS_TRAIT(H, TRAIT_NOFIRE))
