@@ -253,7 +253,7 @@ GLOBAL_VAR(last_connection)
 				if (PLEXORA_CKEYPOLL_NOTLINKED, PLEXORA_CKEYPOLL_RECORDNOTVALID)
 					var/one_time_token = SSdiscord.get_or_generate_one_time_token_for_ckey(ckey)
 					log_access("Denied entry: [ckey] does not have a valid link record.")
-					return list("reason"="linking", "desc"="\nYour Discord account is not linked to BYOND, this is required to join. Your verification code is: [one_time_token] -  Use this in conjunction with the /verifydiscord command in the Discord server to link your account, then try again.")
+					return list("reason"="linking", "desc"="\nYour Discord account is not linked to BYOND, this is required to join.\nYour verification code is: [one_time_token] - Use this in conjunction with the /verifydiscord command in the Discord server to link your account, then try again.")
 				if (PLEXORA_CKEYPOLL_LINKED_ABSENT, PLEXORA_CKEYPOLL_LINKED_DELETED)
 					log = "Denied entry: [ckey]'s linked Discord account is either deleted, or not present in the Discord. ([plexora_poll_result["discord_id"]] - [plexora_poll_result["discord_username"]])"
 					log_access(log)
