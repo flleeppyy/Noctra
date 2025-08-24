@@ -274,6 +274,7 @@ SUBSYSTEM_DEF(plexora)
 	UNTIL_OR_TIMEOUT(request.is_complete(), 5 SECONDS)
 	var/datum/http_response/response = request.into_response()
 	if (response.errored)
+		stack_trace(response.body)
 		plexora_is_alive = FALSE
 		log_access("Plexora is down. Failed to poll ckey [ckey]")
 		return list(
