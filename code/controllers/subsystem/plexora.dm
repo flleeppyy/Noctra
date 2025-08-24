@@ -275,11 +275,12 @@ SUBSYSTEM_DEF(plexora)
 	var/datum/http_response/response = request.into_response()
 	if (response.errored)
 		plexora_is_alive = FALSE
-		log_access("[span_alert("Plexora is down.")] Failed to poll ckey [ckey]")
+		log_access("Plexora is down. Failed to poll ckey [ckey]")
 		return list(
 			"polling_response" = PLEXORA_DOWN
 		)
 	else
+		plexora_is_alive = TRUE
 		var/list/polling_response_body = json_decode(response.body)
 		polling_response_body["polling_response"] = text2num(polling_response_body["polling_response"])
 		return polling_response_body
