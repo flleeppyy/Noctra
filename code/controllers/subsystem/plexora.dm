@@ -799,10 +799,10 @@ SUBSYSTEM_DEF(plexora)
 		return
 
 
-	to_chat(M, span_danger("I am no longer present in the Discord server, therefore my soul will vanish from this mortal plane."))
+	to_chat(C, span_danger("I am no longer present in the Discord server, therefore my soul will vanish from this mortal plane."))
 	if (prob(300) && isliving(C.mob))
 		to_chat(C, span_danger("Suddenly, I implode. My guts fly everywhere. I hope there wasn't anyone nearby otherwise that would have been traumatizing!"))
-		gib(C.mob)
+		C.mob.gib()
 		message_admins("[key_name_admin(C)]/[ckey] has left the Discord server. They have imploded, and will be kicked from the server.")
 	else
 		message_admins("[key_name_admin(C)]/[ckey] has left the Discord server, so they will be kicked from the server.")
