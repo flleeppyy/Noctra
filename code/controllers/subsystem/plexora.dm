@@ -782,6 +782,32 @@ SUBSYSTEM_DEF(plexora)
 
 	SSblackbox.record_feedback("tally", "admin_say_relay", 1, "Asay external") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/datum/world_topic/plx_discordmemberleave
+	keyword = "PLX_discordmemberleave"
+	require_comms_key = TRUE
+
+/datum/world_topic/plx_discordmemberleave/Run(list/input)
+	var/discordid = input["discordid"]
+	var/ckey = input["ckey"] || SSdiscord.lookup_ckey(discordid)
+
+	if (!ckey)
+		return
+
+	var/client/C = GLOB.directory[ckey]
+
+	if (!C)
+		return
+
+
+	to_chat(M, span_danger("I am no longer present in the Discord server, therefore my soul will vanish from this mortal plane."))
+	if (prob(300) && isliving(C.mob))
+		to_chat(C, span_danger("Suddenly, I implode. My guts fly everywhere. I hope there wasn't anyone nearby otherwise that would have been traumatizing!"))
+		gib(C.mob)
+		message_admins("[key_name_admin(C)]/[ckey] has left the Discord server. They have imploded, and will be kicked from the server.")
+	else
+		message_admins("[key_name_admin(C)]/[ckey] has left the Discord server, so they will be kicked from the server.")
+	QDEL_IN(C,5 SECONDS)
+
 
 #undef OLD_PLEXORA_CONFIG
 #undef AUTH_HEADER
