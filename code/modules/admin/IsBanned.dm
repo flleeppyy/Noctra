@@ -33,7 +33,8 @@ GLOBAL_VAR(last_connection)
 
 	var/client/C = GLOB.directory[ckey]
 
-	log_client_to_db_connection_log_manual(ckey, address, computer_id, "isbanned", type)
+	if (!real_bans_only)
+		log_client_to_db_connection_log_manual(ckey, address, computer_id, "isbanned", type)
 
 	//Guest Checking
 	if(!real_bans_only && !C && IsGuestKey(key))
