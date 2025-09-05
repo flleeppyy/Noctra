@@ -220,6 +220,10 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	var/ui_scale
 	///this is our character slot
 	var/tmp/current_slot = 1
+	/// List storing ERP preference values
+	var/list/erp_preferences
+	/// Assoc list of culinary preferences, where the key is the type of the culinary preference, and value is food/drink typepath
+	var/list/culinary_preferences = list()
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -393,6 +397,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 		dat += "<b>Preferred Spouse:</b> <a href='?_src_=prefs;preference=setspouse'>[setspouse ? setspouse : "None"]</a><BR>"
 		dat += "<b>Preferred Gender:</b> <a href='?_src_=prefs;preference=gender_choice'>[gender_choice ? gender_choice : "Any Gender"]</a><BR>"
 	dat += "<b>Dominance:</b> <a href='?_src_=prefs;preference=domhand'>[domhand == 1 ? "Left-handed" : "Right-handed"]</a><BR>"
+	dat += "<b>Food Preferences:</b> <a href='?_src_=prefs;preference=culinary;task=menu'>Change</a><BR>"
 	dat += "</tr></table>"
 	//-----------END OF IDENT TABLE-----------//
 
@@ -420,9 +425,11 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	dat += "<br>"
 	dat += "<b>Voice Type:</b> <a href='?_src_=prefs;preference=voicetype;task=input'>[voice_type]</a>"
 	dat += "<br><b>Voice Color:</b> <a href='?_src_=prefs;preference=voice;task=input'>Change</a>"
+	dat += "<br>"
 	dat += "<br><b>Accent:</b> <a href='?_src_=prefs;preference=selected_accent;task=input'>[selected_accent]</a>"
 	dat += "<br>"
 	dat += "<br><b>Features:</b> <a href='?_src_=prefs;preference=customizers;task=menu'>Change</a>"
+	dat += "<br><b>ERP:</b> <a href='?_src_=prefs;preference=erp;task=menu'>Change</a>"
 	if(length(pref_species.descriptor_choices))
 		dat += "<br><b>Descriptors:</b> <a href='?_src_=prefs;preference=descriptors;task=menu'>Change</a>"
 		dat += "<br>"
@@ -911,6 +918,10 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	else if(href_list["preference"] == "playerquality")
 		check_pq_menu(user.ckey)
 
+	else if(href_list["preference"] == "culinary")
+		show_culinary_ui(user)
+		return
+
 	else if(href_list["preference"] == "markings")
 		ShowMarkings(user)
 		return
@@ -921,6 +932,11 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	else if(href_list["preference"] == "customizers")
 		ShowCustomizers(user)
 		return
+
+	else if(href_list["preference"] == "erp")
+		show_erp_preferences(user)
+		return
+
 	else if(href_list["preference"] == "triumph_buy_menu")
 		SStriumphs.startup_triumphs_menu(user.client)
 
@@ -1001,6 +1017,11 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 		return TRUE
 
 	switch(href_list["task"])
+		if("erp_pref")
+			handle_erp_pref_topic(user, href_list)
+			ShowChoices(user)
+			show_erp_preferences(user)
+			return
 		if("change_customizer")
 			handle_customizer_topic(user, href_list)
 			ShowChoices(user)
@@ -1014,6 +1035,10 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 		if("change_descriptor")
 			handle_descriptors_topic(user, href_list)
 			show_descriptors_ui(user)
+			return
+		if("change_culinary_preferences")
+			handle_culinary_topic(user, href_list)
+			show_culinary_ui(user)
 			return
 		if("random")
 			switch(href_list["preference"])
@@ -1190,7 +1215,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 							to_chat(user, "<span class='info'>[charflaw.desc]</span>")
 
 				if("flavortext")
-					to_chat(user, "<span class='notice'>["<span class='bold'>Flavortext should not include nonphysical nonsensory attributes such as backstory or the character's internal thoughts. NSFW descriptions are prohibited.</span>"]</span>")
+					to_chat(user, "<span class='notice'>["<span class='bold'>Flavortext should not include nonphysical nonsensory attributes such as backstory or the character's internal thoughts.</span>"]</span>")
 					var/new_flavortext = input(user, "Input your character description:", "Flavortext", flavortext) as message|null
 					if(new_flavortext == null)
 						return
@@ -1618,7 +1643,10 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 			qdel(O)
 		character.regenerate_limb(BODY_ZONE_R_ARM)
 		character.regenerate_limb(BODY_ZONE_L_ARM)
-		character.set_flaw(charflaw.type)
+		character.set_flaw(charflaw.type, FALSE)
+
+	if(culinary_preferences)
+		apply_culinary_preferences(character)
 
 	if(parent)
 		var/datum/role_bans/bans = get_role_bans_for_ckey(parent.ckey)
@@ -1640,6 +1668,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 			character.accent = selected_accent
 
 	/* :V */
+	apply_character_kinks(character)
 
 	if(icon_updates)
 		character.update_body()
@@ -1737,7 +1766,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 			"}
 
 /datum/proc/is_valid_headshot_link(mob/user, value, silent = FALSE)
-	var/static/list/allowed_hosts = list("i.gyazo.com", "a.l3n.co", "b.l3n.co", "c.l3n.co", "images2.imgbox.com", "thumbs2.imgbox.com")
+	var/static/list/allowed_hosts = list("i.gyazo.com", "a.l3n.co", "b.l3n.co", "c.l3n.co", "images2.imgbox.com", "thumbs2.imgbox.com", "files.catbox.moe")
 	var/static/list/valid_extensions = list("jpg", "png", "jpeg", "gif")
 
 	if(!length(value))

@@ -35,7 +35,14 @@
 		return
 	if(world.time < (src.last_used[source] + (1 MINUTES + 40 SECONDS))) //thanks borbop
 		return
-
+	if(user?.used_intent?.type in list(
+		INTENT_FEED,
+		INTENT_FILL,
+		INTENT_SPLASH,
+		INTENT_POUR,
+		INTENT_USE
+	))
+		return
 	var/affected = affected_by_bane(target)
 	var/datum/antagonist/vampire/vamp_datum = target.mind?.has_antag_datum(/datum/antagonist/vampire)
 	var/datum/antagonist/werewolf/wolf_datum = target.mind?.has_antag_datum(/datum/antagonist/werewolf)
@@ -49,7 +56,8 @@
 			addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_COVEN_BANE, VAMPIRE_TRAIT), 30 SECONDS)
 			target.clan.disable_covens(target)
 		else
-			target.Paralyze(15)
+			target.Immobilize(15)
+			target.Stun(7.5)
 		target.adjustFireLoss(25)
 		target.adjust_divine_fire_stacks(3)
 		target.IgniteMob()

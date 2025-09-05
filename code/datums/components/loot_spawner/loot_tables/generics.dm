@@ -63,7 +63,8 @@
 			/obj/item/clothing/head/crown/circlet/vision = 3,
 			/obj/item/clothing/head/crown/circlet/sleepless = 3,
 			/obj/item/clothing/head/crown/circlet/stink = 5,
-			/obj/item/clothing/neck/talkstone = 10
+			/obj/item/clothing/neck/talkstone = 10,
+			/obj/item/clothing/ring/dragon_ring = 1,
 		)
 	)
 
@@ -239,22 +240,22 @@
 	name = "generic herbs"
 	loot_table = list(
 		list(
-			/obj/item/alch/atropa = 5,
-			/obj/item/alch/matricaria = 5,
-			/obj/item/alch/symphitum = 5,
-			/obj/item/alch/taraxacum = 5,
-			/obj/item/alch/euphrasia = 5,
-			/obj/item/alch/paris = 5,
-			/obj/item/alch/calendula = 5,
-			/obj/item/alch/mentha = 5,
-			/obj/item/alch/urtica = 5,
-			/obj/item/alch/salvia = 5,
-			/obj/item/alch/hypericum = 5,
-			/obj/item/alch/benedictus = 5,
-			/obj/item/alch/valeriana = 5,
-			/obj/item/alch/artemisia = 5,
-			/obj/item/alch/rosa = 5,
-			/obj/item/alch/euphorbia = 5
+			/obj/item/alch/herb/atropa = 5,
+			/obj/item/alch/herb/matricaria = 5,
+			/obj/item/alch/herb/symphitum = 5,
+			/obj/item/alch/herb/taraxacum = 5,
+			/obj/item/alch/herb/euphrasia = 5,
+			/obj/item/alch/herb/paris = 5,
+			/obj/item/alch/herb/calendula = 5,
+			/obj/item/alch/herb/mentha = 5,
+			/obj/item/alch/herb/urtica = 5,
+			/obj/item/alch/herb/salvia = 5,
+			/obj/item/alch/herb/hypericum = 5,
+			/obj/item/alch/herb/benedictus = 5,
+			/obj/item/alch/herb/valeriana = 5,
+			/obj/item/alch/herb/artemisia = 5,
+			/obj/item/alch/herb/rosa = 5,
+			/obj/item/alch/herb/euphorbia = 5
 		)
 	)
 

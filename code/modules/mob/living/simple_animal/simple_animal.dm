@@ -112,7 +112,7 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 	var/deathmessage = ""
 
 	///Played when someone punches the creature.
-	var/attacked_sound = "punch"
+	var/punched_sound = "punch"
 
 	///If the creature has, and can use, hands.
 	var/dextrous = FALSE
@@ -233,6 +233,7 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 	INVOKE_ASYNC(src, PROC_REF(emote), "lower_head", null, null, null, TRUE)
 	tame = TRUE
 	if(user)
+		SEND_SIGNAL(src, COMSIG_FRIENDSHIP_CHANGE, user, 55)
 		befriend(user)
 		record_round_statistic(STATS_ANIMALS_TAMED)
 		SEND_SIGNAL(user, COMSIG_ANIMAL_TAMED, src)

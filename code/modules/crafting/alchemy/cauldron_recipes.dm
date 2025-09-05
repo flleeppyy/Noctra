@@ -83,9 +83,10 @@
 	html += {"
 		</div>
 		<div>
-			<h2>Requires 10oz Water</h2>
+			<h2>Requires 30 [UNIT_FORM_STRING(30)] of Water</h2>
 			<h2>Creates</h2>
 	"}
+	//regarding the above, the amount of water needed can be found in the cauldron.dm file
 
 	// Add output reagents
 	if(length(output_reagents))
@@ -93,7 +94,7 @@
 		for(var/reagent_type in output_reagents)
 			var/reagent_amount = output_reagents[reagent_type]
 			var/datum/reagent/R = new reagent_type
-			html += "[CEILING(reagent_amount / 3, 1)] oz of [initial(R.name)]<br>"
+			html += "[CEILING(reagent_amount, 1)] [UNIT_FORM_STRING(CEILING(reagent_amount, 1))] of [initial(R.name)]<br>"
 			qdel(R)
 
 	// Add output items

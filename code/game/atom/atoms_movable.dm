@@ -120,7 +120,9 @@
 	var/list/nested_locs = get_nested_locs(src) + src
 	for(var/channel in gone.important_recursive_contents)
 		for(var/atom/movable/location as anything in nested_locs)
+			LAZYINITLIST(location.important_recursive_contents)
 			var/list/recursive_contents = location.important_recursive_contents // blue hedgehog velocity
+			LAZYINITLIST(recursive_contents[channel])
 			recursive_contents[channel] -= gone.important_recursive_contents[channel]
 			switch(channel)
 				if(RECURSIVE_CONTENTS_CLIENT_MOBS, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
@@ -216,7 +218,9 @@
 	SSspatial_grid.remove_grid_membership(src, our_turf, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
 
 	for(var/atom/movable/movable_loc as anything in get_nested_locs(src) + src)
+		LAZYINITLIST(movable_loc.important_recursive_contents)
 		var/list/recursive_contents = movable_loc.important_recursive_contents // blue hedgehog velocity
+		LAZYINITLIST(recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS])
 		recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS] -= src
 		if(!length(recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS]))
 			SSspatial_grid.remove_grid_awareness(movable_loc, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
@@ -1051,6 +1055,17 @@
 GLOBAL_VAR_INIT(pixel_diff, 12)
 GLOBAL_VAR_INIT(pixel_diff_time, 1)
 
+/**
+ * Does an attack animation on the target that either uses the used_item icon or an effect from 'icons/effects/effects.dmi'
+ *
+ * @param {atom} attacked_atom - The thing getting attacked
+ * @param visual_effect_icon - The effect drawn on top of attacked_atom
+ * @param used_item - The item used to draw the swing animation
+ * @param {bool} no_effect - if TRUE, prevents any attack animation on the target
+ * @param item_animation_override - String to determine animation_type of swing animation. Overrides used_intent
+ * @param {datum} used_intent - Intent used to determine animation_type of swing animation
+ * @param {bool} atom_bounce - Whether the src bounces when doing an attack animation
+ */
 /atom/movable/proc/do_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item, no_effect, item_animation_override = null, datum/intent/used_intent, atom_bounce)
 	if(!no_effect && (visual_effect_icon || used_item))
 		var/animation_type = item_animation_override || used_intent?.get_attack_animation_type()

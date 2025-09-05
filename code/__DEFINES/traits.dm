@@ -74,7 +74,7 @@
 
 /// Returns a list of trait sources for this trait. Only useful for wacko cases and internal futzing
 /// You should not be using this
-#define GET_TRAIT_SOURCES(target, trait) (target._status_traits?[trait] || list())
+#define GET_TRAIT_SOURCES(target, trait) (target.status_traits?[trait] || list())
 /// Returns the amount of sources for a trait. useful if you don't want to have a "thing counter" stuck around all the time
 #define COUNT_TRAIT_SOURCES(target, trait) length(GET_TRAIT_SOURCES(target, trait))
 /// A simple helper for checking traits in a mob's mind
@@ -205,7 +205,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ECHOLOCATION_EXTRA_RANGE "echolocation_extra_range"
 
 /// Can swim ignoring water flow and slowdown
-#define TRAIT_GOOD_SWIM "good_swim"
+#define TRAIT_GOOD_SWIM "Good Swim"
 ///trait determines if this mob can breed given by /datum/component/breeding
 #define TRAIT_MOB_BREEDER "mob_breeder"
 #define TRAIT_IMPERCEPTIBLE "imperceptible" // can't be perceived in any way, likely due to invisibility
@@ -381,6 +381,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FLOWERFIELD_IMMUNITY		"Flower Strider"
 #define TRAIT_SECRET_OFFICIANT			"Secret Officiant"
 #define TRAIT_NOENERGY 					"Boundless Energy" //Specifically, You don't lose fatigue, but you do continue losing stamina.
+#define TRAIT_KEENEARS					"Keen Ears"
 #define TRAIT_HEAD_BUTCHER				"Head Butcher"
 /// applied to orphans
 #define TRAIT_ORPHAN 					"Orphan"
@@ -426,7 +427,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ZIZOID_HUNTED "zizoidhunted" // Used to signal character has been marked by death by the Zizoid cult
 #define TRAIT_LEPROSY "Leprosy"
 #define TRAIT_NUDE_SLEEPER "Nude Sleeper"
-#define TRAIT_CIVILIZEDBARBARIAN "Civilized Barbarian"
 #define TRAIT_BEAUTIFUL "Beautiful"
 #define TRAIT_UGLY "Ugly"
 #define TRAIT_SCHIZO_FLAW "Schizophrenic"
