@@ -87,7 +87,11 @@
 
 //#define NO_DUNGEON //comment this to load dungeons.
 
+<<<<<<< HEAD
 //#define USES_PQ
+=======
+#define USES_PQ
+>>>>>>> vanderlin/main
 
 #ifdef LOWMEMORYMODE
 #define FORCE_MAP "_maps/roguetest.json"

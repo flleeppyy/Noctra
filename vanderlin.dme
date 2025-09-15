@@ -169,7 +169,10 @@
 #include "code\__DEFINES\vampires.dm"
 #include "code\__DEFINES\vectors.dm"
 #include "code\__DEFINES\vehicles.dm"
+<<<<<<< HEAD
 #include "code\__DEFINES\veyra.dm"
+=======
+>>>>>>> vanderlin/main
 #include "code\__DEFINES\visual_helpers.dm"
 #include "code\__DEFINES\visual_ui.dm"
 #include "code\__DEFINES\vv.dm"
@@ -219,6 +222,7 @@
 #include "code\__DEFINES\dcs\signals_atoms\signals_atom_mouse.dm"
 #include "code\__DEFINES\dcs\signals_atoms\signals_atom_movable.dm"
 #include "code\__DEFINES\dcs\signals_atoms\signals_atom_movement.dm"
+#include "code\__DEFINES\dcs\signals_atoms\signals_fuse.dm"
 #include "code\__DEFINES\dcs\signals_atoms\signals_obj.dm"
 #include "code\__DEFINES\species\_species.dm"
 #include "code\__DEFINES\species\haircolors.dm"
@@ -970,6 +974,10 @@
 #include "code\datums\elements\holy_weakness.dm"
 #include "code\datums\elements\mob_overlay_effect.dm"
 #include "code\datums\elements\movetype_handler.dm"
+<<<<<<< HEAD
+=======
+#include "code\datums\elements\no_mouse_drop.dm"
+>>>>>>> vanderlin/main
 #include "code\datums\elements\noisy_movement.dm"
 #include "code\datums\elements\relay_attackers.dm"
 #include "code\datums\elements\retaliate.dm"
@@ -1726,6 +1734,7 @@
 #include "code\game\objects\structures\beds_chairs\pew.dm"
 #include "code\game\objects\structures\beds_chairs\roguechair.dm"
 #include "code\game\objects\structures\beds_chairs\sofa.dm"
+#include "code\game\objects\structures\cannon\cannon.dm"
 #include "code\game\objects\structures\crates_lockers\chest.dm"
 #include "code\game\objects\structures\crates_lockers\closets.dm"
 #include "code\game\objects\structures\crates_lockers\crafted_closet.dm"
@@ -2524,6 +2533,11 @@
 #include "code\modules\jobs\job_types\adventurer\types\wretch\necromancer.dm"
 #include "code\modules\jobs\job_types\adventurer\types\wretch\plaguebearer.dm"
 #include "code\modules\jobs\job_types\adventurer\types\wretch\pyromaniac.dm"
+<<<<<<< HEAD
+=======
+#include "code\modules\jobs\job_types\adventurer\types\wretch\reject.dm"
+#include "code\modules\jobs\job_types\adventurer\types\wretch\rouschild.dm"
+>>>>>>> vanderlin/main
 #include "code\modules\jobs\job_types\adventurer\types\wretch\vigilante.dm"
 #include "code\modules\jobs\job_types\apprentices\bapprentice.dm"
 #include "code\modules\jobs\job_types\apprentices\prince.dm"
@@ -3010,6 +3024,7 @@
 #include "code\modules\reagents\chemistry\recipes\pyrotechnics.dm"
 #include "code\modules\reagents\chemistry\recipes\special.dm"
 #include "code\modules\reagents\chemistry\recipes\toxins.dm"
+#include "code\modules\reagents\reagent_containers\bucket_pot.dm"
 #include "code\modules\reagents\reagent_containers\carafe.dm"
 #include "code\modules\reagents\reagent_containers\glass.dm"
 #include "code\modules\reagents\reagent_containers\lux.dm"
@@ -3018,7 +3033,10 @@
 #include "code\modules\reagents\reagent_containers\bottles\_bottle.dm"
 #include "code\modules\reagents\reagent_containers\bottles\alchemy.dm"
 #include "code\modules\reagents\reagent_containers\bottles\beverages.dm"
+<<<<<<< HEAD
 #include "code\modules\reagents\reagent_containers\bucket\pot.dm"
+=======
+>>>>>>> vanderlin/main
 #include "code\modules\screen_alerts\blurb.dm"
 #include "code\modules\screen_alerts\screen_text.dm"
 #include "code\modules\spatial_grid\cell_tracking.dm"
@@ -3090,6 +3108,7 @@
 #include "code\modules\spells\spell_types\pointed\conjure\familiar.dm"
 #include "code\modules\spells\spell_types\pointed\conjure\kneestingers.dm"
 #include "code\modules\spells\spell_types\pointed\conjure\raise_lesser_undead.dm"
+#include "code\modules\spells\spell_types\pointed\conjure\rous.dm"
 #include "code\modules\spells\spell_types\pointed\conjure\web.dm"
 #include "code\modules\spells\spell_types\pointed\enchantment\_enchantment.dm"
 #include "code\modules\spells\spell_types\pointed\enchantment\greenflame_blade.dm"
