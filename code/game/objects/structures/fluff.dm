@@ -161,6 +161,7 @@
 /obj/structure/fluff/railing/tall/palisade
 	name = "palisade"
 	desc = "A sturdy fence of wooden stakes."
+	icon = 'icons/roguetown/misc/railing.dmi'
 	icon_state = "fence"
 	opacity = TRUE
 	climb_offset = 6

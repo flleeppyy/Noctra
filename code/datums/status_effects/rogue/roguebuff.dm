@@ -67,30 +67,18 @@
 
 /datum/status_effect/buff/druqks/on_apply()
 	. = ..()
-	if(owner?.client)
-		if(owner.client.screen && owner.client.screen.len)
-			var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in owner.client.screen
-			PM.backdrop(owner)
-			PM = locate(/atom/movable/screen/plane_master/game_world_fov_hidden) in owner.client.screen
-			PM.backdrop(owner)
-			PM = locate(/atom/movable/screen/plane_master/game_world_above) in owner.client.screen
-			PM.backdrop(owner)
-			var/mob/living/carbon/C = owner
-			C.add_stress(/datum/stressevent/high)
-
+	owner.add_stress(/datum/stressevent/high)
+	var/atom/movable/plane_master_controller/pm_controller = owner.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
+	if(pm_controller)
+		pm_controller.add_filter("druqks_ripple", 1, ripple_filter(0, 50, 1, x = 80))
+		pm_controller.add_filter("druqks_color", 2, color_matrix_filter(list(0,0,1,0, 0,1,0,0, 1,0,0,0, 0,0,0,1, 0,0,0,0)))
 
 /datum/status_effect/buff/druqks/on_remove()
 	. = ..()
-	if(owner?.client)
-		if(owner.client.screen && owner.client.screen.len)
-			var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in owner.client.screen
-			PM.backdrop(owner)
-			PM = locate(/atom/movable/screen/plane_master/game_world_fov_hidden) in owner.client.screen
-			PM.backdrop(owner)
-			PM = locate(/atom/movable/screen/plane_master/game_world_above) in owner.client.screen
-			PM.backdrop(owner)
-			var/mob/living/carbon/C = owner
-			C.remove_stress(/datum/stressevent/high)
+	owner.remove_stress(/datum/stressevent/high)
+	var/atom/movable/plane_master_controller/pm_controller = owner.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
+	if(pm_controller)
+		pm_controller.remove_filter(list("druqks_ripple", "druqks_color"))
 
 /datum/status_effect/buff/druqks/baotha
 
@@ -180,29 +168,11 @@
 
 /datum/status_effect/buff/weed/on_apply()
 	. = ..()
-	if(owner?.client)
-		if(owner.client.screen && owner.client.screen.len)
-			var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in owner.client.screen
-			PM.backdrop(owner)
-			PM = locate(/atom/movable/screen/plane_master/game_world_fov_hidden) in owner.client.screen
-			PM.backdrop(owner)
-			PM = locate(/atom/movable/screen/plane_master/game_world_above) in owner.client.screen
-			PM.backdrop(owner)
-			var/mob/living/carbon/C = owner
-			C.add_stress(/datum/stressevent/weed)
+	owner.add_stress(/datum/stressevent/weed)
 
 /datum/status_effect/buff/weed/on_remove()
 	. = ..()
-	if(owner?.client)
-		if(owner.client.screen && owner.client.screen.len)
-			var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in owner.client.screen
-			PM.backdrop(owner)
-			PM = locate(/atom/movable/screen/plane_master/game_world_fov_hidden) in owner.client.screen
-			PM.backdrop(owner)
-			PM = locate(/atom/movable/screen/plane_master/game_world_above) in owner.client.screen
-			PM.backdrop(owner)
-			var/mob/living/carbon/C = owner
-			C.remove_stress(/datum/stressevent/weed)
+	owner.remove_stress(/datum/stressevent/weed)
 
 /atom/movable/screen/alert/status_effect/buff/weed
 	name = "Dazed"
