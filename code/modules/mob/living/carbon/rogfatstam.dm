@@ -162,7 +162,7 @@
 	shake_camera(src, 1, 3)
 	flash_fullscreen("stressflash")
 	changeNext_move(CLICK_CD_EXHAUSTED)
-	add_stress(/datum/stressevent/freakout)
+	add_stress(/datum/stress_event/freakout)
 	if(stress >= 30)
 		heart_attack()
 	else

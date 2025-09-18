@@ -29,7 +29,7 @@
 /obj/item/phantom_ear/proc/hurt_caster()
 	var/mob/living/linked = linked_living?.resolve()
 	if(linked)
-		linked.add_stress(/datum/stressevent/ear_crushed)
+		linked.add_stress(/datum/stress_event/ear_crushed)
 		linked.emote("painscream")
 		linked.Immobilize(10)
 		linked.Knockdown(10)

@@ -16,12 +16,12 @@
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.add_stress(/datum/stressevent/drunk)
+		C.add_stress(/datum/stress_event/drunk)
 /datum/status_effect/buff/drunk/on_remove()
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.remove_stress(/datum/stressevent/drunk)
+		C.remove_stress(/datum/stress_event/drunk)
 
 /datum/status_effect/buff/foodbuff
 	id = "foodbuff"
@@ -38,7 +38,7 @@
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.add_stress(/datum/stressevent/goodfood)
+		C.add_stress(/datum/stress_event/goodfood)
 
 //============= CLEAN PLUS ===============
 /datum/status_effect/buff/clean_plus
@@ -51,7 +51,7 @@
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.add_stress(/datum/stressevent/clean_plus)
+		C.add_stress(/datum/stress_event/clean_plus)
 
 /atom/movable/screen/alert/status_effect/buff/clean_plus
 	name = "Clean"
@@ -67,7 +67,7 @@
 
 /datum/status_effect/buff/druqks/on_apply()
 	. = ..()
-	owner.add_stress(/datum/stressevent/high)
+	owner.add_stress(/datum/stress_event/high)
 	var/atom/movable/plane_master_controller/pm_controller = owner.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
 	if(pm_controller)
 		pm_controller.add_filter("druqks_ripple", 1, ripple_filter(0, 50, 1, x = 80))
@@ -75,12 +75,10 @@
 
 /datum/status_effect/buff/druqks/on_remove()
 	. = ..()
-	owner.remove_stress(/datum/stressevent/high)
+	owner.remove_stress(/datum/stress_event/high)
 	var/atom/movable/plane_master_controller/pm_controller = owner.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
 	if(pm_controller)
 		pm_controller.remove_filter(list("druqks_ripple", "druqks_color"))
-
-/datum/status_effect/buff/druqks/baotha
 
 /datum/status_effect/buff/druqks/baotha/on_apply()
 	. = ..()
@@ -90,7 +88,6 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_CRACKHEAD, TRAIT_GENERIC)
 	owner.visible_message("[owner]'s eyes appear to return to normal.")
-
 
 /atom/movable/screen/alert/status_effect/buff/druqks
 	name = "High"
@@ -107,7 +104,7 @@
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.add_stress(/datum/stressevent/ozium)
+		C.add_stress(/datum/stress_event/ozium)
 	ADD_TRAIT(owner, TRAIT_NOPAIN, TRAIT_GENERIC)
 
 /datum/status_effect/buff/ozium/on_remove()
@@ -115,7 +112,7 @@
 	REMOVE_TRAIT(owner, TRAIT_NOPAIN, TRAIT_GENERIC)
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.remove_stress(/datum/stressevent/ozium)
+		C.remove_stress(/datum/stress_event/ozium)
 
 /datum/status_effect/buff/moondust
 	id = "moondust"
@@ -130,13 +127,13 @@
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.add_stress(/datum/stressevent/moondust)
+		C.add_stress(/datum/stress_event/moondust)
 
 /datum/status_effect/buff/moondust/on_remove()
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.remove_stress(/datum/stressevent/moondust)
+		C.remove_stress(/datum/stress_event/moondust)
 
 /datum/status_effect/buff/moondust_purest
 	id = "purest moondust"
@@ -151,13 +148,13 @@
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.add_stress(/datum/stressevent/moondust_purest)
+		C.add_stress(/datum/stress_event/moondust_purest)
 
 /datum/status_effect/buff/moondust_purest/on_remove()
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.remove_stress(/datum/stressevent/moondust_purest)
+		C.remove_stress(/datum/stress_event/moondust_purest)
 
 
 /datum/status_effect/buff/weed
@@ -168,11 +165,11 @@
 
 /datum/status_effect/buff/weed/on_apply()
 	. = ..()
-	owner.add_stress(/datum/stressevent/weed)
+	owner.add_stress(/datum/stress_event/weed)
 
 /datum/status_effect/buff/weed/on_remove()
 	. = ..()
-	owner.remove_stress(/datum/stressevent/weed)
+	owner.remove_stress(/datum/stress_event/weed)
 
 /atom/movable/screen/alert/status_effect/buff/weed
 	name = "Dazed"
@@ -249,13 +246,13 @@
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.add_stress(/datum/stressevent/calm)
+		C.add_stress(/datum/stress_event/calm)
 
 /datum/status_effect/buff/calm/on_remove()
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.remove_stress(/datum/stressevent/calm)
+		C.remove_stress(/datum/stress_event/calm)
 
 /datum/status_effect/buff/barbrage
 	id = "barbrage"
@@ -398,13 +395,13 @@
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.add_stress(/datum/stressevent/divine_beauty)
+		C.add_stress(/datum/stress_event/divine_beauty)
 
 /datum/status_effect/buff/divine_beauty/on_remove()
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		C.remove_stress(/datum/stressevent/divine_beauty)
+		C.remove_stress(/datum/stress_event/divine_beauty)
 
 /atom/movable/screen/alert/status_effect/buff/divine_beauty
 	name = "Divine Beauty"
@@ -849,11 +846,11 @@
 
 /datum/status_effect/buff/lux_drank/on_apply()
 	. = ..()
-	owner.add_stress(/datum/stressevent/high)
+	owner.add_stress(/datum/stress_event/high)
 	SEND_SIGNAL(owner, COMSIG_LUX_TASTED)
 
 /datum/status_effect/buff/lux_drank/on_remove()
-	owner.remove_stress(/datum/stressevent/high)
+	owner.remove_stress(/datum/stress_event/high)
 
 	. = ..()
 
