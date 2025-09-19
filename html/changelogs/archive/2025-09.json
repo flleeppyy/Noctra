@@ -558,5 +558,25 @@
                 "bugfix": "Fixed twist not causing dislocations or fractures"
             }
         ]
+    },
+    "2025-09-19": {
+        "grungussuss": [
+            {
+                "qol": "tweaked animated runechat"
+            },
+            {
+                "rscadd": "You can now move diagonally"
+            }
+        ],
+        "7erracotta": [
+            {
+                "rscadd": "Added a new class alongside some sprites"
+            }
+        ],
+        "CheffieGithub": [
+            {
+                "bugfix": "Fix infinite stress events"
+            }
+        ]
     }
 }
