@@ -3,30 +3,30 @@
 		return
 	if(!HAS_TRAIT(src, TRAIT_TOLERANT))
 		if(!isdarkelf(user) && isdarkelf(src))
-			user.add_stress(/datum/stressevent/delf)
+			user.add_stress(/datum/stress_event/delf)
 		if(!istiefling(user) && istiefling(src))
-			user.add_stress(/datum/stressevent/tieb)
+			user.add_stress(/datum/stress_event/tieb)
 		if(!ishalforc(user) && ishalforc(src))
-			user.add_stress(/datum/stressevent/horc)
+			user.add_stress(/datum/stress_event/horc)
 		if(user.has_flaw(/datum/charflaw/paranoid) && (STASTR - user.STASTR) > 1)
-			user.add_stress(/datum/stressevent/parastr)
+			user.add_stress(/datum/stress_event/parastr)
 		if(HAS_TRAIT(src, TRAIT_FOREIGNER) && !HAS_TRAIT(user, TRAIT_FOREIGNER))
 			if(user.has_flaw(/datum/charflaw/paranoid))
-				user.add_stress(/datum/stressevent/paraforeigner)
+				user.add_stress(/datum/stress_event/paraforeigner)
 			else
-				user.add_stress(/datum/stressevent/foreigner)
+				user.add_stress(/datum/stress_event/foreigner)
 	if(HAS_TRAIT(src, TRAIT_BEAUTIFUL))
 		if(user == src)
-			user.add_stress(/datum/stressevent/beautiful_self)
+			user.add_stress(/datum/stress_event/beautiful_self)
 		else
-			user.add_stress(/datum/stressevent/beautiful)
+			user.add_stress(/datum/stress_event/beautiful)
 	if(HAS_TRAIT(src, TRAIT_UGLY) && user != src)
 		if(user == src)
-			user.add_stress(/datum/stressevent/ugly_self)
+			user.add_stress(/datum/stress_event/ugly_self)
 		else
-			user.add_stress(/datum/stressevent/ugly)
+			user.add_stress(/datum/stress_event/ugly)
 	if(HAS_TRAIT(src, TRAIT_OLDPARTY) && HAS_TRAIT(user, TRAIT_OLDPARTY) && user != src)
-		user.add_stress(/datum/stressevent/saw_old_party)
+		user.add_stress(/datum/stress_event/saw_old_party)
 
 /mob/living/carbon/human/examine(mob/user)
 	var/ignore_pronouns = FALSE
@@ -560,8 +560,13 @@
 				. += span_notice("Inscryption[N ? " by [N]'s " : ""][W ? "Wonder #[W]" : ""]: [K ? K : ""]")
 
 	if(!obscure_name) // Miniature headshot on examine
+<<<<<<< HEAD
 		if(headshot_link)
 			. += "<span class='info'><img src=[headshot_link] width=100 height=100/></span>"
+=======
+		if(headshot_link && client?.patreon?.has_access(ACCESS_ASSISTANT_RANK))
+			. += "<img src=[headshot_link] width=100 height=100/>"
+>>>>>>> vanderlin/main
 
 	if(Adjacent(user))
 		if(isobserver(user))
@@ -591,9 +596,13 @@
 	// Characters with the hunted flaw will freak out if they can't see someone's face.
 	if(!appears_dead)
 		if(skipface && user.has_flaw(/datum/charflaw/hunted) && user != src)
-			user.add_stress(/datum/stressevent/hunted)
+			user.add_stress(/datum/stress_event/hunted)
 
+<<<<<<< HEAD
 	if(!obscure_name && (flavortext || headshot_link)) // only show flavor text if there is a flavor text and we show headshot
+=======
+	if(!obscure_name && (flavortext || (headshot_link && client?.patreon?.has_access(ACCESS_ASSISTANT_RANK)))) // only show flavor text if there is a flavor text and we show headshot
+>>>>>>> vanderlin/main
 		. += "<a href='?src=[REF(src)];task=view_flavor_text;'>Examine Closer</a>"
 
 	var/trait_exam = common_trait_examine()

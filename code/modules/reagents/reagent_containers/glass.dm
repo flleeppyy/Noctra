@@ -40,7 +40,7 @@
 	if(desired_transfer > liquids.liquid_group.reagents_per_turf)
 		desired_transfer = liquids.liquid_group.reagents_per_turf
 	liquids.liquid_group.trans_to_seperate_group(my_beaker.reagents, desired_transfer, liquids)
-	to_chat(user, span_notice("You scoop up around [round(desired_transfer)] [UNIT_FORM_STRING(round(desired_transfer))] of liquids with [my_beaker]."))
+	to_chat(user, span_notice("You scoop up around [UNIT_FORM_STRING(round(desired_transfer))] of liquids with [my_beaker]."))
 	user.changeNext_move(CLICK_CD_MELEE)
 	return TRUE
 
@@ -131,7 +131,7 @@
 			if(ishuman(user) && istype(src, /obj/item/reagent_containers/glass/bowl))
 				var/mob/living/carbon/human/human_user = user
 				if(human_user.is_noble()) // egads we're an unmannered SLOB
-					human_user.add_stress(/datum/stressevent/noble_bad_manners)
+					human_user.add_stress(/datum/stress_event/noble_bad_manners)
 					if(prob(25))
 						to_chat(human_user, span_red("I've got better manners than this..."))
 			to_chat(user, span_notice("I swallow a gulp of [src]."))
@@ -240,6 +240,7 @@
 				qdel(E)
 			return
 	..()
+<<<<<<< HEAD
 
 /obj/item/reagent_containers/glass/bucket
 	name = "bugged bucket please report to mappers"
@@ -301,3 +302,5 @@
 		switch(tag)
 			if("gen")
 				return list("shrink" = 0.5,"sx" = -5,"sy" = -8,"nx" = 7,"ny" = -9,"wx" = -1,"wy" = -8,"ex" = -1,"ey" = -8,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0)
+=======
+>>>>>>> vanderlin/main

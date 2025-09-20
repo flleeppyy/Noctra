@@ -220,10 +220,13 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	var/randomize_shutup = FALSE
 	/// Custom UI scale
 	var/ui_scale
+<<<<<<< HEAD
 	///this is our character slot
 	var/tmp/current_slot = 1
 	/// List storing ERP preference values
 	var/list/erp_preferences
+=======
+>>>>>>> vanderlin/main
 	/// Assoc list of culinary preferences, where the key is the type of the culinary preference, and value is food/drink typepath
 	var/list/culinary_preferences = list()
 
@@ -304,7 +307,6 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 
 	dat += "<td style='width:33%;text-align:right'>"
 	dat += "<a href='?_src_=prefs;preference=keybinds;task=menu'>Keybinds</a>"
-	dat += "<br><a href='?_src_=prefs;preference=toggles'>Toggles</a>"
 	dat += "</td>"
 	dat += "</tr>"
 
@@ -319,7 +321,7 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	dat += "</td>"
 
 	dat += "<td style='width:33%;text-align:right'>"
-
+	dat += "<a href='?_src_=prefs;preference=toggles'>Toggles</a>"
 	dat += "</td>"
 	dat += "</tr>"
 
