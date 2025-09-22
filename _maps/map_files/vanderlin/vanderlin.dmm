@@ -766,6 +766,7 @@
 	name = "Stockpiles"
 	},
 /obj/effect/mapping_helpers/access/keyset/manor/vault,
+/obj/effect/mapping_helpers/access/locker,
 /turf/open/floor/tile,
 /area/rogue/indoors/town/vault)
 "auu" = (
@@ -10373,6 +10374,7 @@
 	name = "Metals"
 	},
 /obj/effect/mapping_helpers/access/keyset/manor/vault,
+/obj/effect/mapping_helpers/access/locker,
 /turf/open/floor/cobble,
 /area/rogue/under/town/basement)
 "fYj" = (
@@ -39379,6 +39381,7 @@
 	name = "Food and Materials"
 	},
 /obj/effect/mapping_helpers/access/keyset/manor/vault,
+/obj/effect/mapping_helpers/access/locker,
 /turf/open/floor/cobble,
 /area/rogue/under/town/basement)
 "yfN" = (

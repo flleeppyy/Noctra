@@ -660,5 +660,20 @@
                 "image": "shield heraldies"
             }
         ]
+    },
+    "2025-09-22": {
+        "wgtjunior743": [
+            {
+                "bugfix": "Vault keys can open the Storage doors near the vault."
+            }
+        ],
+        "Wouju": [
+            {
+                "rscadd": "Added a new artificer contraption, basically an ingot mold that cools down metal twice as fast as a normal one (normal ingot moulds cool down THRICE as fast as before now)"
+            },
+            {
+                "bugfix": "fixed ingot molds not needing to reharden metal after the first harden-ing"
+            }
+        ]
     }
 }
