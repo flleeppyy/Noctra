@@ -56,6 +56,20 @@
 	armor = ARMOR_PLATE_BAD
 	max_integrity = INTEGRITY_STANDARD
 
+/obj/item/clothing/shoes/boots/armor/blkknight
+	name = "blacksteel boots"
+	desc = "Boots forged from blacksteel, light yet strong, perfect for a fearless stride."
+	icon_state = "bkboots"
+	icon = 'icons/roguetown/clothing/special/blkknight.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
+	sleeved = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
+	anvilrepair = /datum/skill/craft/blacksmithing
+	smeltresult = /obj/item/ingot/blacksteel
+	armor_class = AC_MEDIUM
+	armor = ARMOR_PLATE_GOOD
+	item_weight = 7 * BLACKSTEEL_MULTIPLIER
+	sellprice = VALUE_SILVER_ITEM * 2
+
 /obj/item/clothing/shoes/boots/leather
 	name = "leather boots"
 	//dropshrink = 0.75

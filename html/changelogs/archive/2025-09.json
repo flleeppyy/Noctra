@@ -675,5 +675,53 @@
                 "bugfix": "fixed ingot molds not needing to reharden metal after the first harden-ing"
             }
         ]
+    },
+    "2025-09-23": {
+        "Wouju": [
+            {
+                "balance": "adepts no longer have church key"
+            },
+            {
+                "rscadd": "Abyssorites and Pestrans can summon leeches now."
+            },
+            {
+                "balance": "tweaked cost and cooldown of cure rot and bodypart miracle. Bodypart miracle now heals limbs and organs when reattached."
+            },
+            {
+                "balance": "Fireball, arcyne storm and meteor storm have shout invocations now."
+            },
+            {
+                "rscadd": "Added new mercenary. Sellmage. Basically a mage noble whom became a mercenary to make ends meet."
+            }
+        ],
+        "wgtjunior743": [
+            {
+                "bugfix": "Non zizo cultist worshippers being affected by the zizo godweapon."
+            },
+            {
+                "bugfix": "Zizo clerics/paladins hearing the necra variant when someone dies instead of the zizo one."
+            }
+        ],
+        "SarmentiCampbell": [
+            {
+                "rscadd": "Add a race-locked patron for Rakshari in the godless section."
+            }
+        ],
+        "MercadierY2K": [
+            {
+                "balance": "Fishers now start with average crafting and some sewing skill."
+            }
+        ],
+        "snowyseshi": [
+            {
+                "rscadd": "Added descriptions for the ancient gauntlet, ancient hauberk renamed to ancient haubergeon"
+            },
+            {
+                "balance": "Vampire plate is now a half-plate like the sprite."
+            },
+            {
+                "balance": "Savoyard now has steel durability"
+            }
+        ]
     }
 }
