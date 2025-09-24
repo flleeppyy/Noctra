@@ -1012,7 +1012,7 @@
 
 /datum/repeatable_crafting_recipe/sewing/lakkarijupon
 	name = "lakkarian jupon"
-	output = /obj/item/clothing/armor/gambeson/lakkarijupon
+	output = /obj/item/clothing/armor/gambeson/heavy/lakkarijupon
 	requirements = list(/obj/item/natural/cloth = 4,
 				/obj/item/natural/fibers = 2,
 				/obj/item/ingot/iron = 1)

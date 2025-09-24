@@ -15,7 +15,7 @@
 	H.cmode_music = 'sound/music/cmode/church/CombatAstrata.ogg'
 
 	head = /obj/item/clothing/head/helmet/ironpot/lakkariancap
-	armor = /obj/item/clothing/armor/gambeson/lakkarijupon
+	armor = /obj/item/clothing/armor/gambeson/heavy/lakkarijupon
 	shirt = /obj/item/clothing/shirt/undershirt/fancy
 	gloves = /obj/item/clothing/gloves/leather
 	wrists = /obj/item/clothing/neck/psycross/silver/astrata
