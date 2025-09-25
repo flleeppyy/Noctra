@@ -58,6 +58,8 @@
 	var/obj/item/cloak = null
 	var/obj/item/clothing/wear_shirt = null
 
+	var/hygiene = HYGIENE_LEVEL_NORMAL
+
 	///for the intent of dodge this is your armor class that you have worn (its highest worn)
 	var/worn_armor_class = ARMOR_CLASS_NONE
 

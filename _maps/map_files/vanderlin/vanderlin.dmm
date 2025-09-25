@@ -8006,6 +8006,7 @@
 /area/rogue/indoors/soilsons)
 "eHV" = (
 /obj/effect/landmark/start/sapprentice,
+/obj/structure/fake_machine/scomm/l,
 /turf/open/floor/blocks/newstone/alt,
 /area/rogue/indoors/town/smithy)
 "eIn" = (
@@ -12010,11 +12011,12 @@
 /turf/open/floor/naturalstone,
 /area/rogue/under/town/basement)
 "gXK" = (
-/obj/structure/fake_machine/scomm{
-	pixel_y = -32
+/obj/structure/fake_machine/atm{
+	pixel_y = 0;
+	pixel_x = -32
 	},
-/turf/closed/wall/mineral/decorstone/window,
-/area/rogue/indoors/town/clinic_large)
+/turf/open/floor/herringbone,
+/area/rogue/indoors/town/smithy)
 "gXL" = (
 /obj/item/bedsheet/cloth,
 /obj/structure/bed/mediocre,
@@ -18438,6 +18440,13 @@
 	},
 /turf/open/floor/greenstone,
 /area/rogue/indoors/town/magician)
+"lch" = (
+/obj/structure/fake_machine/atm{
+	pixel_x = 32;
+	pixel_y = 0
+	},
+/turf/open/floor/cobblerock,
+/area/rogue/indoors/town/smithy)
 "lcz" = (
 /obj/machinery/light/fueled/hearth,
 /obj/machinery/light/fueled/oven{
@@ -22680,6 +22689,16 @@
 /obj/structure/water_pipe,
 /turf/open/floor/tile/bath,
 /area/rogue/indoors/town/bath)
+"nKF" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 4
+	},
+/obj/structure/fluff/walldeco/church/line{
+	dir = 8
+	},
+/obj/structure/fake_machine/scomm/l,
+/turf/open/floor/church,
+/area/rogue/indoors/town/clinic_large)
 "nKI" = (
 /obj/structure/fluff/railing/wood{
 	dir = 8;
@@ -27238,6 +27257,10 @@
 /obj/item/natural/worms/leech/propaganda,
 /turf/open/water/sewer,
 /area/rogue/under/town/basement)
+"qDW" = (
+/obj/structure/fake_machine/scomm,
+/turf/open/floor/herringbone,
+/area/rogue/indoors/town/smithy)
 "qEb" = (
 /turf/closed/wall/mineral/wooddark/horizontal,
 /area/rogue/indoors/town)
@@ -39328,7 +39351,6 @@
 /turf/open/floor/ruinedwood/spiral,
 /area/rogue/indoors/town/steward)
 "yel" = (
-/obj/structure/fake_machine/scomm/l,
 /obj/structure/table/wood/reinforced_alter,
 /obj/structure/bars{
 	icon_state = "barsbent";
@@ -97879,7 +97901,7 @@ rzU
 fUO
 iWp
 foL
-gXK
+sKM
 foL
 sKM
 foL
@@ -98082,7 +98104,7 @@ fUO
 wLR
 jJi
 cit
-xDP
+nKF
 xDP
 lMX
 lsu
@@ -100707,11 +100729,11 @@ tIg
 lQR
 ieu
 qBL
-uOB
+qDW
 uOB
 dFv
 eGV
-uOB
+gXK
 twh
 xfp
 jgB
@@ -102131,7 +102153,7 @@ hRa
 pnI
 dFv
 dFv
-dFv
+lch
 bva
 uOB
 uNE

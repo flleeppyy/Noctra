@@ -216,8 +216,6 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 	/// If our owner is from a race that has more than one accent
 	var/change_accent = FALSE
 
-	/// If the user clicked "Don't ask again" on the randomize character prompt
-	var/randomize_shutup = FALSE
 	/// Custom UI scale
 	var/ui_scale
 <<<<<<< HEAD
@@ -1588,13 +1586,6 @@ GLOBAL_LIST_INIT(name_adjustments, list())
 							save_character()
 
 				if("randomiseappearanceprefs")
-					if(!randomize_shutup)
-						var/alert_response = browser_alert(user, "Are you sure you want to randomise your appearance preferences? This will overwrite your current preferences.", "Randomise Appearance Preferences", list("Yes", "No", "Don\'t Ask Again This Round (Yes)"))
-						if(alert_response != "Yes")
-							if(alert_response == "Don't Ask Again This Round (Yes)")
-								randomize_shutup = TRUE
-							else
-								return
 					randomise_appearance_prefs(include_patreon = patreon)
 					customizer_entries = list()
 					validate_customizer_entries()

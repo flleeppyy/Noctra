@@ -482,3 +482,21 @@
 	desc = span_danger("Oh- \n I don't... have it anymore.\n")
 
 
+/datum/status_effect/debuff/stinky_person
+	id = "stinky_person"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/stinky_person
+	duration = -1
+
+/atom/movable/screen/alert/status_effect/debuff/stinky_person
+	name = "Stinky Person"
+	desc = "<span class='warning'>I smell HORRID.</span>\n"
+	icon_state = "stinky" //TODO add icon
+
+/datum/status_effect/debuff/stinky_person/on_apply()
+	. = ..()
+	owner.AddComponent(/datum/component/rot/stinky_person)
+
+/datum/status_effect/debuff/stinky_person/on_remove()
+	. = ..()
+	var/datum/component/stinky_component = GetComponent(/datum/component/rot/stinky_person)
+	stinky_component?.RemoveComponent()

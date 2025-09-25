@@ -31,6 +31,9 @@
 	soundpack_m = /datum/voicepack/male
 	soundpack_f = /datum/voicepack/female
 
+	//related to preening emote - lets preening be used roundstart
+	COOLDOWN_DECLARE(time_to_next_preen)
+
 	offset_features_m = list(
 		OFFSET_RING = list(0,1),\
 		OFFSET_GLOVES = list(0,1),\
@@ -139,6 +142,8 @@
 	"red - cardinal" = "822b2b",
 
 	"grey - osprey" = "7c828a",
+
+	"orange - oriole" = "d55f2a",
 
 	"white - swan" = "d3d9e3",
 	"white - egret" = "dee9ed",
