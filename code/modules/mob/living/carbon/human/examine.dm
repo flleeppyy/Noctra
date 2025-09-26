@@ -599,9 +599,13 @@
 			user.add_stress(/datum/stress_event/hunted)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if(!obscure_name && (flavortext || headshot_link)) // only show flavor text if there is a flavor text and we show headshot
 =======
 	if(!obscure_name && (flavortext || (headshot_link && client?.patreon?.has_access(ACCESS_ASSISTANT_RANK)))) // only show flavor text if there is a flavor text and we show headshot
+>>>>>>> vanderlin/main
+=======
+	if(!obscure_name && (flavortext || ((headshot_link || ooc_extra_link) && client?.patreon?.has_access(ACCESS_ASSISTANT_RANK)))) // only show flavor text if there is a flavor text and we show headshot
 >>>>>>> vanderlin/main
 		. += "<a href='?src=[REF(src)];task=view_flavor_text;'>Examine Closer</a>"
 
