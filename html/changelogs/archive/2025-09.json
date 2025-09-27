@@ -871,5 +871,20 @@
                 "map": "added city watch lieutenant's room and office, tweaked the city watch garrison a bit"
             }
         ]
+    },
+    "2025-09-27": {
+        "Wouju": [
+            {
+                "rscadd": "Mages can pick their hats and robes upon spawning in."
+            },
+            {
+                "balance": "wretches have 2 slots instead of 3"
+            }
+        ],
+        "PineappleMan929": [
+            {
+                "spellcheck": "wine bottle description fix"
+            }
+        ]
     }
 }

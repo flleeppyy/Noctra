@@ -282,6 +282,10 @@
 	bloody_icon_state = "bodyblood"
 	component_type = /datum/component/storage/concrete/grid/backpack
 
+/obj/item/storage/backpack/backpack/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_HARD_TO_STEAL, TRAIT_GENERIC)
+
 /obj/item/storage/backpack/backpack/artibackpack
 	name = "cooling backpack"
 	desc = "A leather backpack with complex bronze pipework coursing through it. It hums and vibrates constantly."
