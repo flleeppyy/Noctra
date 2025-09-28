@@ -1,1 +1,0 @@
-{"author":"wgtjunior743","delete-after":true,"changes":[{"bugfix":"Harpoon consuming steam when it is not being used."},{"bugfix":"Harpoon being able to remove all the steam from the steamknight boiler."},{"bugfix":"Steamknight being skilled if they picked saber, they are not expert."},{"bugfix":"Steamknight still being expert on crossbow."}]}

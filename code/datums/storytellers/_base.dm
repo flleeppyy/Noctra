@@ -224,9 +224,9 @@
 		mode.TriggerEvent(bought_event, forced)
 	else
 		if(track == EVENT_TRACK_OMENS)
-			mode.schedule_event(bought_event, 3 MINUTES, total_cost, _forced = forced, omen = TRUE)
+			mode.schedule_event(bought_event, 2 MINUTES, total_cost, _forced = forced, omen = TRUE)
 		else
-			mode.schedule_event(bought_event, 3 MINUTES, total_cost, _forced = forced)
+			mode.schedule_event(bought_event, 2 MINUTES, total_cost, _forced = forced)
 	SSgamemode.triggered_round_events |= bought_event.name
 
 /// Calculates the weights of the events from a passed track.

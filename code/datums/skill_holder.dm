@@ -67,6 +67,15 @@
 /mob/proc/adjust_experience(skill, amt, silent=FALSE, check_apprentice=TRUE)
 	return ensure_skills().adjust_experience(skill, amt, silent, check_apprentice)
 
+/mob/proc/get_inspirational_bonus()
+	return 0
+
+/mob/living/carbon/get_inspirational_bonus()
+	var/bonus = 0
+	for(var/datum/stress_event/event in stressors)
+		bonus += event.quality_modifier
+	return bonus
+
 /**
  * adjusts the skill level
  * Vars:

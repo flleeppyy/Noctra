@@ -333,17 +333,16 @@
 				msg += "<span class='danger'>[m1] gravely wounded.</span>"
 
 	// Blood volume
-	switch(blood_volume)
-		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-			msg += span_artery("<B>[m1] extremely pale and sickly.")
-			msg += "<span class='artery'><B>[m1] extremely pale and sickly.</B></span>"
-		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-			msg += span_artery("<B>[m1] very pale.")
-		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-			msg += span_artery("[m1] pale.")
-		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
-			msg += span_artery("[m1] a little pale.")
-
+	if(!SEND_SIGNAL(src, COMSIG_DISGUISE_STATUS))
+		switch(blood_volume)
+			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
+				msg += "<span class='artery'><B>[m1] extremely pale and sickly.</B></span>"
+			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
+				msg += "<span class='artery'><B>[m1] very pale.</B></span>"
+			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
+				msg += "<span class='artery'>[m1] pale.</span>"
+			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
+				msg += "<span class='artery'>[m1] a little pale.</span>"
 	// Bleeding
 	var/bleed_rate = get_bleed_rate()
 	if(bleed_rate)
