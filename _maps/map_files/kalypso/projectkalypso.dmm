@@ -3257,12 +3257,6 @@
 /obj/effect/decal/cleanable/debris/wood,
 /turf/open/floor/cobble,
 /area/rogue/under/cave)
-"qm" = (
-/obj/item/reagent_containers/food/snacks/truffles{
-	pixel_x = -4
-	},
-/turf/open/floor/grass,
-/area/rogue/outdoors)
 "qo" = (
 /obj/structure/flora/grass/thorn_bush,
 /turf/open/water/swamp,
@@ -5595,14 +5589,6 @@
 /obj/structure/flora/grass/tundra,
 /turf/open/floor/dirt,
 /area/rogue/outdoors)
-"CG" = (
-/obj/structure/flora/grass/water,
-/obj/item/reagent_containers/food/snacks/truffles{
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/turf/open/water/marsh,
-/area/rogue/outdoors)
 "CJ" = (
 /obj/structure/flora/newtree{
 	dir = 8;
@@ -7274,12 +7260,6 @@
 /obj/effect/decal/cleanable/debris/stone,
 /turf/open/floor/blocks,
 /area/rogue/under/cave)
-"Lu" = (
-/obj/item/reagent_containers/food/snacks/truffles{
-	pixel_y = -5
-	},
-/turf/open/floor/dirt,
-/area/rogue/outdoors)
 "Lv" = (
 /obj/structure/fluff/walldeco/vinez/red,
 /turf/open/floor/dirt,
@@ -284775,11 +284755,11 @@ Px
 xr
 pd
 ZS
-CG
+Ff
 lv
 PC
 MC
-qm
+iy
 rc
 iy
 iy
@@ -287587,7 +287567,7 @@ xr
 iy
 iy
 hg
-Lu
+xr
 IN
 PC
 PC

@@ -933,5 +933,12 @@
                 "balance": "you can aim for a specific back/belt slot by aiming for the targets arms/legs"
             }
         ]
+    },
+    "2025-09-29": {
+        "wgtjunior743": [
+            {
+                "bugfix": "Sallet beings unforgeable."
+            }
+        ]
     }
 }

@@ -45,7 +45,13 @@
 		/obj/item/key/forrestgarrison,
 	)
 
-//Mercenary's belt starts with a bandage and a key to their guildhall.
+/obj/item/storage/belt/leather/townguard //they get their keys + dagger there
+	populate_contents = list(
+		/obj/item/weapon/knife/dagger/steel/special,
+		/obj/item/storage/keyring/guard,
+	)
+
+// Bandit's belt starts with a bandage and a key to their guildhall.
 /obj/item/storage/belt/leather/mercenary
 	populate_contents = list(
 		/obj/item/natural/cloth,
