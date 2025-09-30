@@ -74,6 +74,6 @@
 	var/static/list/selectablerobe = list(
 		"Black robes" = /obj/item/clothing/shirt/robe/colored/black,
 		"Mage robes" = /obj/item/clothing/shirt/robe/colored/mage,
-		"Necromancer robes (will only work on male, non-dwarves)" = /obj/item/clothing/shirt/robe/necromancer
+		"Necromancer robes" = /obj/item/clothing/shirt/robe/necromancer
 	)
 	H.select_equippable(H, selectablerobe, message = "Choose your robe of choice", title = "WIZARD")

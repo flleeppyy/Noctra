@@ -940,5 +940,12 @@
                 "bugfix": "Sallet beings unforgeable."
             }
         ]
+    },
+    "2025-09-30": {
+        "Wouju": [
+            {
+                "rscadd": "Added new sprites for wizard and necromancer robes"
+            }
+        ]
     }
 }

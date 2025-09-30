@@ -93,6 +93,6 @@
 		"Black robes" = /obj/item/clothing/shirt/robe/colored/black,
 		"Mage robes" = /obj/item/clothing/shirt/robe/colored/mage,
 		"Courtmage Robes" = /obj/item/clothing/shirt/robe/colored/courtmage,
-		"Wizard robes (male only, won't fit on dwarves)" = /obj/item/clothing/shirt/robe/wizard,
+		"Wizard robes" = /obj/item/clothing/shirt/robe/wizard,
 	)
 	H.select_equippable(H, selectablerobe, message = "Choose your robe of choice", title = "WIZARD")
