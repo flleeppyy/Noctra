@@ -3,30 +3,30 @@
 		return
 	if(!HAS_TRAIT(src, TRAIT_TOLERANT))
 		if(!isdarkelf(user) && isdarkelf(src))
-			user.add_stress(/datum/stressevent/delf)
+			user.add_stress(/datum/stress_event/delf)
 		if(!istiefling(user) && istiefling(src))
-			user.add_stress(/datum/stressevent/tieb)
+			user.add_stress(/datum/stress_event/tieb)
 		if(!ishalforc(user) && ishalforc(src))
-			user.add_stress(/datum/stressevent/horc)
+			user.add_stress(/datum/stress_event/horc)
 		if(user.has_flaw(/datum/charflaw/paranoid) && (STASTR - user.STASTR) > 1)
-			user.add_stress(/datum/stressevent/parastr)
+			user.add_stress(/datum/stress_event/parastr)
 		if(HAS_TRAIT(src, TRAIT_FOREIGNER) && !HAS_TRAIT(user, TRAIT_FOREIGNER))
 			if(user.has_flaw(/datum/charflaw/paranoid))
-				user.add_stress(/datum/stressevent/paraforeigner)
+				user.add_stress(/datum/stress_event/paraforeigner)
 			else
-				user.add_stress(/datum/stressevent/foreigner)
+				user.add_stress(/datum/stress_event/foreigner)
 	if(HAS_TRAIT(src, TRAIT_BEAUTIFUL))
 		if(user == src)
-			user.add_stress(/datum/stressevent/beautiful_self)
+			user.add_stress(/datum/stress_event/beautiful_self)
 		else
-			user.add_stress(/datum/stressevent/beautiful)
+			user.add_stress(/datum/stress_event/beautiful)
 	if(HAS_TRAIT(src, TRAIT_UGLY) && user != src)
 		if(user == src)
-			user.add_stress(/datum/stressevent/ugly_self)
+			user.add_stress(/datum/stress_event/ugly_self)
 		else
-			user.add_stress(/datum/stressevent/ugly)
+			user.add_stress(/datum/stress_event/ugly)
 	if(HAS_TRAIT(src, TRAIT_OLDPARTY) && HAS_TRAIT(user, TRAIT_OLDPARTY) && user != src)
-		user.add_stress(/datum/stressevent/saw_old_party)
+		user.add_stress(/datum/stress_event/saw_old_party)
 
 /mob/living/carbon/human/examine(mob/user)
 	var/ignore_pronouns = FALSE
@@ -157,7 +157,7 @@
 		if(real_name in GLOB.heretical_players)
 			. += span_userdanger("HERETIC! SHAME!")
 
-		if(iszizocultist(user) || iszizolackey(user))
+		if(is_zizocultist(user.mind) || is_zizolackey(user.mind))
 			if(virginity)
 				. += span_userdanger("VIRGIN!")
 
@@ -284,7 +284,7 @@
 		. += "[m3] [wear_neck.get_examine_string(user)] around [m2] neck."
 
 	if(get_eye_color() == BLOODCULT_EYE)
-		. += "<span class='warning'><B>[capitalize(m2)] eyes are glowing an unnatural red!</B></span>"
+		. += span_warning("<B>[capitalize(m2)] eyes are glowing an unnatural red!</B>")
 
 	//ID
 	if(wear_ring && !(obscured & ITEM_SLOT_RING))
@@ -333,16 +333,16 @@
 				msg += "<span class='danger'>[m1] gravely wounded.</span>"
 
 	// Blood volume
-	switch(blood_volume)
-		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-			msg += "<span class='artery'><B>[m1] extremely pale and sickly.</B></span>"
-		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-			msg += "<span class='artery'><B>[m1] very pale.</B></span>"
-		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-			msg += "<span class='artery'>[m1] pale.</span>"
-		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
-			msg += "<span class='artery'>[m1] a little pale.</span>"
-
+	if(!SEND_SIGNAL(src, COMSIG_DISGUISE_STATUS))
+		switch(blood_volume)
+			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
+				msg += "<span class='artery'><B>[m1] extremely pale and sickly.</B></span>"
+			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
+				msg += "<span class='artery'><B>[m1] very pale.</B></span>"
+			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
+				msg += "<span class='artery'>[m1] pale.</span>"
+			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
+				msg += "<span class='artery'>[m1] a little pale.</span>"
 	// Bleeding
 	var/bleed_rate = get_bleed_rate()
 	if(bleed_rate)
@@ -372,14 +372,14 @@
 			bleeding_limbs += parse_zone(bleeder.body_zone)
 		if(length(bleeding_limbs))
 			if(bleed_rate >= 5)
-				msg += "<span class='bloody'><B>[capitalize(m2)] [english_list(bleeding_limbs)] [bleeding_limbs.len > 1 ? "are" : "is"] [bleed_wording]!</B></span>"
+				msg += span_bloody("<B>[capitalize(m2)] [english_list(bleeding_limbs)] [bleeding_limbs.len > 1 ? "are" : "is"] [bleed_wording]!</B>")
 			else
-				msg += "<span class='bloody'>[capitalize(m2)] [english_list(bleeding_limbs)] [bleeding_limbs.len > 1 ? "are" : "is"] [bleed_wording]!</span>"
+				msg += span_bloody("[capitalize(m2)] [english_list(bleeding_limbs)] [bleeding_limbs.len > 1 ? "are" : "is"] [bleed_wording]!")
 		else
 			if(bleed_rate >= 5)
-				msg += "<span class='bloody'><B>[m1] [bleed_wording]</B>!</span>"
+				msg += span_bloody("<B>[m1] [bleed_wording]</B>!")
 			else
-				msg += "<span class='bloody'>[m1] [bleed_wording]!</span>"
+				msg += span_bloody("[m1] [bleed_wording]!")
 
 	// Missing limbs
 	var/missing_head = FALSE
@@ -392,9 +392,9 @@
 	if(length(missing_limbs))
 		var/missing_limb_message = "<B>[capitalize(m2)] [english_list(missing_limbs)] [missing_limbs.len > 1 ? "are" : "is"] gone.</B>"
 		if(missing_head)
-			missing_limb_message = "<span class='dead'>[missing_limb_message]</span>"
+			missing_limb_message = span_dead("[missing_limb_message]")
 		else
-			missing_limb_message = "<span class='danger'>[missing_limb_message]</span>"
+			missing_limb_message = span_danger("[missing_limb_message]")
 		msg += missing_limb_message
 
 	//Grabbing
@@ -501,7 +501,7 @@
 				msg += "[m1] twitching ever so slightly."
 
 		if(InCritical())
-			msg += "<span class='warning'>[m1] barely conscious.</span>"
+			msg += span_warning("[m1] barely conscious.")
 		else
 			if(stat >= UNCONSCIOUS)
 				msg += "[m1] [IsSleeping() ? "sleeping" : "unconscious"]."
@@ -523,13 +523,17 @@
 //				msg += "[m3] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon."
 
 	if(length(msg))
-		. += "<span class='warning'>[msg.Join("\n")]</span>"
+		. += span_warning("[msg.Join("\n")]")
 
 	if(isliving(user) && user != src)
 		var/mob/living/L = user
 		var/final_str = STASTR
+		var/con_check = STACON
+		var/spd_check = STASPD
 		if(HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS))
 			final_str = 10
+			con_check = 10
+			spd_check = 10
 		var/strength_diff = final_str - L.STASTR
 		switch(strength_diff)
 			if(5 to INFINITY)
@@ -542,6 +546,25 @@
 				. += span_warning("[t_He] look[p_s()] weaker than I.")
 			if(-INFINITY to -5)
 				. += span_warning("<B>[t_He] look[p_s()] much weaker than I.</B>")
+		if(L.STAPER >= 12)
+			switch(con_check)
+				if(15 to INFINITY)
+					. += span_warning("<B>[t_He] look[p_s()] very vigorous.</B>")
+				if(10 to 15)
+					. += span_warning("[t_He] look[p_s()] vigorous.")
+				if(5 to 10)
+					. += span_warning("[t_He] look[p_s()] sickly.")
+				if(-INFINITY to 5)
+					. += span_warning("<B>[t_He] look[p_s()] very sickly.</B>")
+			switch(spd_check)
+				if(15 to INFINITY)
+					. += span_warning("<B>[t_He] look[p_s()] very swift.</B>")
+				if(10 to 15)
+					. += span_warning("[t_He] look[p_s()] quick.")
+				if(5 to 10)
+					. += span_warning("[t_He] look[p_s()] sluggish.")
+				if(-INFINITY to 5)
+					. += span_warning("<B>[t_He] look[p_s()] very sluggish.</B>")
 
 		if(maniac)
 			var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
@@ -560,8 +583,13 @@
 				. += span_notice("Inscryption[N ? " by [N]'s " : ""][W ? "Wonder #[W]" : ""]: [K ? K : ""]")
 
 	if(!obscure_name) // Miniature headshot on examine
+<<<<<<< HEAD
 		if(headshot_link)
 			. += "<span class='info'><img src=[headshot_link] width=100 height=100/></span>"
+=======
+		if(headshot_link && client?.patreon?.has_access(ACCESS_ASSISTANT_RANK))
+			. += "<img src=[headshot_link] width=100 height=100/>"
+>>>>>>> vanderlin/main
 
 	if(Adjacent(user))
 		if(isobserver(user))
@@ -591,9 +619,17 @@
 	// Characters with the hunted flaw will freak out if they can't see someone's face.
 	if(!appears_dead)
 		if(skipface && user.has_flaw(/datum/charflaw/hunted) && user != src)
-			user.add_stress(/datum/stressevent/hunted)
+			user.add_stress(/datum/stress_event/hunted)
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 	if(!obscure_name && (flavortext || headshot_link)) // only show flavor text if there is a flavor text and we show headshot
+=======
+	if(!obscure_name && (flavortext || (headshot_link && client?.patreon?.has_access(ACCESS_ASSISTANT_RANK)))) // only show flavor text if there is a flavor text and we show headshot
+>>>>>>> vanderlin/main
+=======
+	if(!obscure_name && (flavortext || ((headshot_link || ooc_extra_link) && client?.patreon?.has_access(ACCESS_ASSISTANT_RANK)))) // only show flavor text if there is a flavor text and we show headshot
+>>>>>>> vanderlin/main
 		. += "<a href='?src=[REF(src)];task=view_flavor_text;'>Examine Closer</a>"
 
 	var/trait_exam = common_trait_examine()

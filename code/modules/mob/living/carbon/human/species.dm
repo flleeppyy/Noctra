@@ -141,12 +141,15 @@ GLOBAL_LIST_EMPTY(patreon_races)
 
 	/// Multipler for how quickly nutrition decreases
 	var/nutrition_mod = 1
+	/// Multiplier for how quickly hygiene decreases
+	var/hygiene_mod = 1
 	/// Multipler for blood loss
 	var/bleed_mod = 1
 	/// Multipler for pain
 	var/pain_mod = 1
 	/// Electrocution coeffcient
 	var/siemens_coeff = 1
+
 
 	/// Type of damage melee attacks do
 	var/attack_type = BRUTE
@@ -1281,14 +1284,18 @@ GLOBAL_LIST_EMPTY(patreon_races)
 			H.apply_status_effect(/datum/status_effect/debuff/hungryt1)
 			H.remove_status_effect(/datum/status_effect/debuff/hungryt2)
 			H.remove_status_effect(/datum/status_effect/debuff/hungryt3)
+			H.remove_status_effect(/datum/status_effect/debuff/hungryt4)
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
 			H.apply_status_effect(/datum/status_effect/debuff/hungryt2)
 			H.remove_status_effect(/datum/status_effect/debuff/hungryt1)
 			H.remove_status_effect(/datum/status_effect/debuff/hungryt3)
+			H.remove_status_effect(/datum/status_effect/debuff/hungryt4)
 		if(0 to NUTRITION_LEVEL_STARVING)
 			H.apply_status_effect(/datum/status_effect/debuff/hungryt3)
 			H.remove_status_effect(/datum/status_effect/debuff/hungryt1)
 			H.remove_status_effect(/datum/status_effect/debuff/hungryt2)
+			if(CONFIG_GET(flag/starvation_death))
+				H.apply_status_effect(/datum/status_effect/debuff/hungryt4)
 			if(prob(3))
 				playsound(get_turf(H), pick('sound/vo/hungry1.ogg','sound/vo/hungry2.ogg','sound/vo/hungry3.ogg'), 100, TRUE, -1)
 
@@ -1299,15 +1306,18 @@ GLOBAL_LIST_EMPTY(patreon_races)
 			H.apply_status_effect(/datum/status_effect/debuff/thirstyt1)
 			H.remove_status_effect(/datum/status_effect/debuff/thirstyt2)
 			H.remove_status_effect(/datum/status_effect/debuff/thirstyt3)
+			H.remove_status_effect(/datum/status_effect/debuff/thirstyt4)
 		if(HYDRATION_LEVEL_DEHYDRATED to HYDRATION_LEVEL_THIRSTY)
 			H.apply_status_effect(/datum/status_effect/debuff/thirstyt2)
 			H.remove_status_effect(/datum/status_effect/debuff/thirstyt1)
 			H.remove_status_effect(/datum/status_effect/debuff/thirstyt3)
+			H.remove_status_effect(/datum/status_effect/debuff/thirstyt4)
 		if(0 to HYDRATION_LEVEL_DEHYDRATED)
 			H.apply_status_effect(/datum/status_effect/debuff/thirstyt3)
 			H.remove_status_effect(/datum/status_effect/debuff/thirstyt1)
 			H.remove_status_effect(/datum/status_effect/debuff/thirstyt2)
-
+			if(CONFIG_GET(flag/dehydration_death))
+				H.apply_status_effect(/datum/status_effect/debuff/thirstyt4)
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return 0
@@ -1320,6 +1330,51 @@ GLOBAL_LIST_EMPTY(patreon_races)
 	if(H.gender == FEMALE)
 		H.set_facial_hair_style(/datum/sprite_accessory/hair/facial/none, FALSE)
 	H.set_hair_style(/datum/sprite_accessory/hair/head/bald)
+
+
+/datum/species/proc/handle_hygiene(mob/living/carbon/human/H)
+	if(H.stat == DEAD)
+		return
+	if(HAS_TRAIT(H, TRAIT_NOHYGIENE))
+		return
+	switch(H.hygiene)
+		if(HYGIENE_LEVEL_CLEAN to HYGIENE_LEVEL_CLEAN)
+			if(HAS_TRAIT(H, TRAIT_STINKY))
+				H.add_stress(/datum/stress_event/forced_clean)
+				H.remove_stress(/datum/stress_event/filth_lover)
+			else
+				H.add_stress(/datum/stress_event/clean)
+			H.remove_status_effect(/datum/status_effect/debuff/stinky_person)
+			H.remove_stress(/datum/stress_event/dirty)
+			H.remove_stress(/datum/stress_event/disgusting)
+		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DISGUSTING)
+			if(HAS_TRAIT(H, TRAIT_STINKY))
+				H.add_stress(/datum/stress_event/filth_lover)
+			else
+				H.add_stress(/datum/stress_event/disgusting)
+			H.apply_status_effect(/datum/status_effect/debuff/stinky_person)
+			H.remove_stress(/datum/stress_event/forced_clean)
+			H.remove_stress(/datum/stress_event/dirty)
+			H.remove_stress(/datum/stress_event/clean)
+
+		if(HYGIENE_LEVEL_DIRTY to HYGIENE_LEVEL_CLEAN)
+			H.remove_stress(/datum/stress_event/dirty)
+			H.remove_stress(/datum/stress_event/disgusting)
+			H.remove_status_effect(/datum/status_effect/debuff/stinky_person)
+		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DIRTY)
+			if(HAS_TRAIT(H, TRAIT_STINKY))
+				H.add_stress(/datum/stress_event/filth_lover)
+			else
+				H.add_stress(/datum/stress_event/dirty)
+			H.remove_status_effect(/datum/status_effect/debuff/stinky_person)
+			H.remove_stress(/datum/stress_event/forced_clean)
+			H.remove_stress(/datum/stress_event/disgusting)
+			H.remove_stress(/datum/stress_event/clean)
+
+
+
+
+
 
 //////////////////
 // ATTACK PROCS //
@@ -1436,6 +1491,7 @@ GLOBAL_LIST_EMPTY(patreon_races)
 		if(target.mind)
 			target.mind.attackedme[user.real_name] = world.time
 		target.lastattackerckey = user.ckey
+		target.lastattacker_weakref = WEAKREF(user)
 		user.dna.species.spec_unarmedattacked(user, target)
 
 		user.do_attack_animation(target, visual_effect_icon = user.used_intent.animname, used_item = FALSE, atom_bounce = TRUE)
@@ -1641,6 +1697,7 @@ GLOBAL_LIST_EMPTY(patreon_races)
 		if(!stander)
 			target.lastattacker = user.real_name
 			target.lastattackerckey = user.ckey
+			target.lastattacker_weakref = WEAKREF(user)
 			if(target.mind)
 				target.mind.attackedme[user.real_name] = world.time
 			var/selzone = accuracy_check(user.zone_selected, user, target, /datum/skill/combat/unarmed, user.used_intent)
@@ -1765,6 +1822,7 @@ GLOBAL_LIST_EMPTY(patreon_races)
 		playsound(target, 'sound/combat/hits/kick/kick.ogg', 100, TRUE, -1)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
+		target.lastattacker_weakref = WEAKREF(user)
 		if(target.mind)
 			target.mind.attackedme[user.real_name] = world.time
 		user.adjust_stamina(15)
@@ -1871,6 +1929,7 @@ GLOBAL_LIST_EMPTY(patreon_races)
 					user.put_in_hands(I)
 					H.emote("pain", TRUE)
 					playsound(H.loc, 'sound/foley/flesh_rem.ogg', 100, TRUE, -2)
+			I.do_special_attack_effect(user, affecting, intent, H, selzone)
 			if(istype(user.used_intent, /datum/intent/effect) && selzone)
 				var/datum/intent/effect/effect_intent = user.used_intent
 				if(LAZYLEN(effect_intent.target_parts))
@@ -2103,7 +2162,7 @@ GLOBAL_LIST_EMPTY(patreon_races)
 	var/debuff_level = 0
 	// Heat damage and effects
 	if(H.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT && !HAS_TRAIT(H, TRAIT_RESISTHEAT))
-		H.remove_stress(list(/datum/stressevent/cold_mild, /datum/stressevent/cold_moderate, /datum/stressevent/cold_severe))
+		remove_cold_stress(H)
 
 		var/heat_excess = H.bodytemperature - BODYTEMP_HEAT_DAMAGE_LIMIT
 		apply_heat_stress(H, heat_excess)
@@ -2123,7 +2182,7 @@ GLOBAL_LIST_EMPTY(patreon_races)
 		apply_heat_debuffs(H, debuff_level)
 	// Cold damage and effects
 	else if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !HAS_TRAIT(H, TRAIT_RESISTCOLD))
-		H.remove_stress(list(/datum/stressevent/hot_mild, /datum/stressevent/hot_moderate, /datum/stressevent/hot_severe))
+		remove_heat_stress(H)
 
 		var/cold_deficit = BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature
 		apply_cold_stress(H, cold_deficit)
@@ -2139,63 +2198,75 @@ GLOBAL_LIST_EMPTY(patreon_races)
 	else
 		H.clear_alert("temp")
 		H.remove_movespeed_modifier(MOVESPEED_ID_COLD)
-		H.remove_stress(list(/datum/stressevent/cold_mild, /datum/stressevent/cold_moderate, /datum/stressevent/cold_severe,
-							/datum/stressevent/hot_mild, /datum/stressevent/hot_moderate, /datum/stressevent/hot_severe))
 		clear_temperature_debuffs(H)
+
+/datum/species/proc/remove_heat_stress(mob/living/carbon/human/H)
+	H.remove_stress(list(
+		/datum/stress_event/hot_mild,
+		/datum/stress_event/hot_moderate,
+		/datum/stress_event/hot_severe,
+	))
 
 /datum/species/proc/apply_heat_stress(mob/living/carbon/human/H, heat_excess)
 	if(heat_excess < 0)
 		return
 	switch(heat_excess)
 		if(0 to 5) // Mild heat
-			H.add_stress(/datum/stressevent/hot_mild)
+			H.add_stress(/datum/stress_event/hot_mild)
 		if(5 to 15) // Moderate heat
-			H.add_stress(/datum/stressevent/hot_moderate)
+			H.add_stress(/datum/stress_event/hot_moderate)
 		else // Severe heat
-			H.add_stress(/datum/stressevent/hot_severe)
+			H.add_stress(/datum/stress_event/hot_severe)
+
+/datum/species/proc/remove_cold_stress(mob/living/carbon/human/H)
+	H.remove_stress(list(
+		/datum/stress_event/cold_mild,
+		/datum/stress_event/cold_moderate,
+		/datum/stress_event/cold_severe,
+	))
 
 /datum/species/proc/apply_cold_stress(mob/living/carbon/human/H, cold_deficit)
 	if(cold_deficit < 0)
 		return
 	switch(cold_deficit)
 		if(0 to 5) // Mild cold
-			H.add_stress(/datum/stressevent/cold_mild)
+			H.add_stress(/datum/stress_event/cold_mild)
 		if(5 to 15) // Moderate cold
-			H.add_stress(/datum/stressevent/cold_moderate)
+			H.add_stress(/datum/stress_event/cold_moderate)
 		else // Severe cold
-			H.add_stress(/datum/stressevent/cold_severe)
+			H.add_stress(/datum/stress_event/cold_severe)
 
 // Heat stress events
-/datum/stressevent/hot_mild
-	timer = 60 SECONDS
-	stressadd = 1
+/datum/stress_event/hot_mild
 	desc = "<span class='warning'>It's getting warm in here.</span>"
-
-/datum/stressevent/hot_moderate
 	timer = 60 SECONDS
-	stressadd = 3
+	stress_change = 1
+
+/datum/stress_event/hot_moderate
 	desc = "<span class='red'>This heat is becoming unbearable.</span>"
-
-/datum/stressevent/hot_severe
 	timer = 60 SECONDS
-	stressadd = 6
+	stress_change = 3
+
+/datum/stress_event/hot_severe
 	desc = "<span class='boldred'>I'm burning up!</span>"
+	timer = 60 SECONDS
+	stress_change = 6
 
 // Cold stress events
-/datum/stressevent/cold_mild
-	timer = 60 SECONDS
-	stressadd = 1
+/datum/stress_event/cold_mild
 	desc = "<span class='notice'>It's getting chilly.</span>"
-
-/datum/stressevent/cold_moderate
 	timer = 60 SECONDS
-	stressadd = 3
+	stress_change = 1
+
+/datum/stress_event/cold_moderate
 	desc = "<span class='blue'>This cold is really getting to me.</span>"
-
-/datum/stressevent/cold_severe
 	timer = 60 SECONDS
-	stressadd = 6
+	stress_change = 3
+
+/datum/stress_event/cold_severe
 	desc = "<span class='boldblue'>I'm freezing to death!</span>"
+	timer = 60 SECONDS
+	stress_change = 6
 
 /datum/species/proc/calculate_heat_damage(mob/living/carbon/human/H, heat_excess)
 	var/firemodifier = (H.fire_stacks + H.divine_fire_stacks) / 50
@@ -2238,19 +2309,19 @@ GLOBAL_LIST_EMPTY(patreon_races)
 /datum/species/proc/apply_heat_debuffs(mob/living/carbon/human/H, level)
 	switch(level)
 		if(1)
-			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/hot, 1)
+			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/hot)
 			// Mild heat stress - slight stamina drain
 			if(!H.temp_debuff_level || H.temp_debuff_level < 1)
 				H.temp_debuff_level = 1
 				H.adjust_hydration(-HUNGER_FACTOR * 0.5)
 		if(2)
-			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/hot, 2)
+			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/hot)
 			// Moderate heat stress - stamina drain + slight slowdown
 			if(!H.temp_debuff_level || H.temp_debuff_level < 2)
 				H.temp_debuff_level = 2
 				H.adjust_hydration(-HUNGER_FACTOR)
 		if(3)
-			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/hot, 3)
+			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/hot)
 			// Severe heat stress - major stamina drain + significant slowdown
 			if(!H.temp_debuff_level || H.temp_debuff_level < 3)
 				H.temp_debuff_level = 3
@@ -2259,21 +2330,21 @@ GLOBAL_LIST_EMPTY(patreon_races)
 /datum/species/proc/apply_cold_debuffs(mob/living/carbon/human/H, level, cold_deficit)
 	switch(level)
 		if(1)
-			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/cold, 1)
+			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/cold)
 			// Mild cold - slight movement slowdown
 			H.add_movespeed_modifier(MOVESPEED_ID_COLD, override = TRUE,
 				multiplicative_slowdown = (cold_deficit / COLD_SLOWDOWN_FACTOR) * 0.5,
 				blacklisted_movetypes = FLOATING)
 			H.temp_debuff_level = 1
 		if(2)
-			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/cold, 2)
+			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/cold)
 			// Moderate cold - movement slowdown + reduced dexterity
 			H.add_movespeed_modifier(MOVESPEED_ID_COLD, override = TRUE,
 				multiplicative_slowdown = (cold_deficit / COLD_SLOWDOWN_FACTOR) * 0.8,
 				blacklisted_movetypes = FLOATING)
 			H.temp_debuff_level = 2
 		if(3)
-			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/cold, 3)
+			H.throw_alert("temp", /atom/movable/screen/alert/status_effect/debuff/cold)
 			// Severe cold - major slowdown + hypothermia effects
 			H.add_movespeed_modifier(MOVESPEED_ID_COLD, override = TRUE,
 				multiplicative_slowdown = cold_deficit / COLD_SLOWDOWN_FACTOR,
@@ -2284,6 +2355,14 @@ GLOBAL_LIST_EMPTY(patreon_races)
 	if(H.temp_debuff_level)
 		H.remove_movespeed_modifier("heat_stress")
 		H.temp_debuff_level = null
+	H.remove_stress(list(
+		/datum/stress_event/cold_mild,
+		/datum/stress_event/cold_moderate,
+		/datum/stress_event/cold_severe,
+		/datum/stress_event/hot_mild,
+		/datum/stress_event/hot_moderate,
+		/datum/stress_event/hot_severe,
+	))
 
 //////////
 // FIRE //
@@ -2346,7 +2425,7 @@ GLOBAL_LIST_EMPTY(patreon_races)
 			H.adjust_bodytemperature(5)
 		else
 			H.adjust_bodytemperature(BODYTEMP_HEATING_MAX + ((H.fire_stacks + H.divine_fire_stacks)* 12))
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)
+			H.add_stress(/datum/stress_event/on_fire)
 
 /datum/species/proc/CanIgniteMob(mob/living/carbon/human/H)
 	if(H.status_flags & GODMODE)

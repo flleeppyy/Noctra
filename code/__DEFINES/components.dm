@@ -148,6 +148,10 @@
 /// From /obj/item/multitool/remove_buffer(): (buffer)
 #define COMSIG_MULTITOOL_REMOVE_BUFFER "multitool_remove_buffer"
 
+/// from /obj/proc/unfreeze()
+#define COMSIG_OBJ_UNFREEZE "obj_unfreeze"
+
+
 // /obj/machinery signals
 #define COMSIG_MACHINERY_BROKEN "machinery_broken"				//from /obj/machinery/obj_break(damage_flag): (damage_flag)
 #define COMSIG_MACHINERY_POWER_LOST "machinery_power_lost"			//from base power_change() when power is lost
@@ -229,11 +233,6 @@
 
 //Gibs
 #define COMSIG_GIBS_STREAK "gibs_streak"						// from base of /obj/effect/decal/cleanable/blood/gibs/streak(): (list/directions, list/diseases)
-
-//Mood
-#define COMSIG_ADD_MOOD_EVENT "add_mood" //Called when you send a mood event from anywhere in the code.
-#define COMSIG_ADD_MOOD_EVENT_RND "RND_add_mood" //Mood event that only RnD members listen for
-#define COMSIG_CLEAR_MOOD_EVENT "clear_mood" //Called when you clear a mood event from anywhere in the code.
 
 //NTnet
 #define COMSIG_COMPONENT_NTNET_RECEIVE "ntnet_receive"			//called on an object by its NTNET connection component on receive. (sending_id(number), sending_netname(text), data(datum/netdata))
@@ -327,3 +326,7 @@
 #define COMSIG_GRENADE_ARMED "grenade_armed"
 
 #define COMSIG_MOB_HEALTHHUD_UPDATE "update_healthhud"
+
+#define COMSIG_ITEM_ATTACK_EFFECT "item_attack_effect"
+#define COMSIG_ITEM_ATTACK_EFFECT_SELF "item_attack_effect_self"
+#define COMSIG_DOOR_OPENED "door_open"

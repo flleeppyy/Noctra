@@ -1549,8 +1549,9 @@
 			to_chat(M, "*--------*")
 			if(!length(M.stressors))
 				to_chat(M, span_info("I'm not feeling much of anything right now."))
-			for(var/stress_type in M.stressors)
-				var/datum/stressevent/stress_event = M.stressors[stress_type]
+			for(var/datum/stress_event/stress_event in M.stressors)
+				if(!stress_event.can_show())
+					continue
 				var/count = stress_event.stacks
 				var/ddesc = islist(stress_event.desc) ? pick(stress_event.desc) : stress_event.desc
 				if(count > 1)
@@ -1563,8 +1564,7 @@
 				to_chat(M, "<span class='warning'>I haven't TRIUMPHED.</span>")
 				return
 			if(alert("Do you want to remember a TRIUMPH?", "", "Yes", "No") == "Yes")
-				var/mob/living/carbon/V = M
-				if(V.add_stress(/datum/stressevent/triumph))
+				if(M.add_stress(/datum/stress_event/triumph))
 					M.adjust_triumphs(-1)
 					M.playsound_local(M, 'sound/misc/notice (2).ogg', 100, FALSE)
 
@@ -1891,3 +1891,101 @@
 /atom/movable/screen/daynight/New(client/C) //TODO: Make this use INITIALIZE_IMMEDIATE, except its not easy
 	. = ..()
 	icon_state = GLOB.tod
+
+/atom/movable/screen/bloodpool
+	appearance_flags = KEEP_TOGETHER
+	icon_state = "empty"
+	icon = 'icons/mob/rogueheat.dmi'
+	screen_loc = rogueui_vitae
+	var/width = 4
+	var/height = 43
+	var/orientation = NORTH
+	var/atom/movable/screen/bloodpool_maskpart/background
+	var/atom/movable/screen/bloodpool_maskpart/foreground
+	var/atom/movable/screen/bloodpool_maskpart/fill
+	var/atom/movable/screen/bloodpool_maskpart/mask
+
+/atom/movable/screen/bloodpool/Initialize(mapload, ...)
+	. = ..()
+	foreground = new /atom/movable/screen/bloodpool_maskpart/foreground(null, icon, src)
+	background = new /atom/movable/screen/bloodpool_maskpart/background(null, icon, src)
+	fill = new /atom/movable/screen/bloodpool_maskpart/fill(null, icon, src)
+	mask = new /atom/movable/screen/bloodpool_maskpart/mask(null, icon, src)
+
+	background.vis_contents += fill
+	mask.vis_contents += background
+	vis_contents.Add(mask, foreground)
+
+/atom/movable/screen/bloodpool/Destroy()
+	QDEL_NULL(background)
+	QDEL_NULL(foreground)
+	QDEL_NULL(fill)
+	QDEL_NULL(mask)
+	return ..()
+
+/atom/movable/screen/bloodpool/proc/set_fill_color(new_color = "#ffffff")
+	fill.color = new_color
+
+/atom/movable/screen/bloodpool/proc/set_value(ratio = 1.0, duration = 0)
+	//constrain the ratio between 0 and 1
+	ratio = min(max(ratio,0),1)
+
+	//apply orientation factors for fill bar offsets
+	var/fx = 0, fy = 0
+	switch(orientation)
+		if(EAST)
+			fx = -1
+		if(WEST)
+			fx = 1
+		if(SOUTH)
+			fy = 1
+		if(NORTH)
+			fy = -1
+
+	//calculate the offset of the fill bar.
+	var/invratio = 1-ratio
+	var/epx = width * invratio * fx
+	var/epy = height * invratio * fy
+
+	//apply the offset to the fill bar
+	if(duration)
+		//if a time value has been supplied, animate the transition from the current position
+		animate(fill, pixel_w = epx,pixel_z = epy, time = duration)
+	else
+		//if a time value has not been supplied, instantly set to the new position
+		fill.pixel_w = epx
+		fill.pixel_z = epy
+
+	animate(fill, time = duration)
+
+/atom/movable/screen/bloodpool_maskpart
+	layer = FLOAT_LAYER
+	plane = FLOAT_PLANE
+	/// Ref to our parent screem, purely for examine purposes
+	var/atom/movable/screen/parent_screen
+
+/atom/movable/screen/bloodpool_maskpart/Initialize(mapload, icon, parent_screen)
+	. = ..()
+	src.icon = icon
+	src.parent_screen = parent_screen
+
+/atom/movable/screen/bloodpool_maskpart/examine_ui(mob/user)
+	return parent_screen?.examine_ui(user)
+
+/atom/movable/screen/bloodpool_maskpart/Destroy()
+	parent_screen = null
+	return ..()
+
+/atom/movable/screen/bloodpool_maskpart/background
+	icon_state = "mana_bg"
+	appearance_flags = KEEP_TOGETHER
+	blend_mode = BLEND_MULTIPLY
+
+/atom/movable/screen/bloodpool_maskpart/foreground
+	icon_state = "mana_fg"
+
+/atom/movable/screen/bloodpool_maskpart/fill
+	icon_state = "mana_fill"
+
+/atom/movable/screen/bloodpool_maskpart/mask
+	icon_state = "mana_mask"

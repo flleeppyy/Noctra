@@ -72,14 +72,14 @@
 		var/datum/reagent/molten_metal/metal = internal_reagents.get_reagent(/datum/reagent/molten_metal)
 		if(metal)
 			for(var/datum/material/material as anything in metal.data)
-				if(!istype(material))
+				if(!ispath(material))
 					continue
 				var/tag = "Molten"
 				if(internal_reagents.chem_temp < material.melting_point)
 					tag = "Hardened"
 				var/total_volume = metal.data[material]
 				var/reagent_color = initial(material.color)
-				. += "It contains [total_volume] [UNIT_FORM_STRING(total_volume)] of <font color=[reagent_color]> [tag] [initial(material.name)].</font>"
+				. += "It contains [UNIT_FORM_STRING(total_volume)] of <font color=[reagent_color]> [tag] [initial(material.name)].</font>"
 
 /obj/structure/channel_connector/furnace/attackby(obj/item/I, mob/living/user, params)
 	// Fuel the furnace

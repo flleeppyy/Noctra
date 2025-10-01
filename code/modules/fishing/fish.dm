@@ -12,6 +12,7 @@
 	dropshrink = 0.6
 	slices_num = 1
 	slice_bclass = BCLASS_CHOP
+	faretype = FARE_IMPOVERISHED //incase someone decides to eat raw fish
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	slice_path = /obj/item/reagent_containers/food/snacks/meat/mince/fish
 	eat_effect = /datum/status_effect/debuff/uncookedfood
@@ -36,7 +37,7 @@
 	else
 		if(isturf(user.loc))
 			src.forceMove(user.loc)
-		to_chat(user, "<span class='warning'>Too slippery!</span>")
+		to_chat(user, span_warning("Too slippery!"))
 		return
 
 /obj/item/reagent_containers/food/snacks/fish/process()
@@ -102,10 +103,18 @@
 /obj/item/reagent_containers/food/snacks/fryfish/clownfish
 	name = "cooked clownfish"
 	icon_state = "clownfishcooked"
+<<<<<<< HEAD
+=======
+	faretype = FARE_FINE
+>>>>>>> vanderlin/main
 
 /obj/item/reagent_containers/food/snacks/fryfish/angler
 	name = "cooked anglerfish"
 	icon_state = "anglercooked"
+<<<<<<< HEAD
+=======
+	faretype = FARE_NEUTRAL
+>>>>>>> vanderlin/main
 
 /obj/item/reagent_containers/food/snacks/fryfish/eel
 	name = "cooked eel"

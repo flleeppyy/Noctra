@@ -1,5 +1,6 @@
 /obj/item/storage/crucible
 	name = "crucible"
+	desc = "A crucible in which metal items can be molten down."
 	layer = ABOVE_ALL_MOB_LAYER
 
 	icon = 'icons/roguetown/weapons/crucible.dmi'
@@ -37,13 +38,13 @@
 	. = ..()
 	var/datum/reagent/molten_metal/metal = reagents.get_reagent(/datum/reagent/molten_metal)
 	if(metal)
-		for(var/datum/material/material as anything in metal.data)
+		for(var/datum/material/material in metal.data)
 			var/tag = "Molten"
 			if(reagents.chem_temp < material.melting_point)
 				tag = "Hardened"
 			var/total_volume = metal.data[material]
 			var/reagent_color = initial(material.color)
-			. += "It contains [total_volume] [UNIT_FORM_STRING(total_volume)] of <font color=[reagent_color]> [tag] [initial(material.name)].</font>"
+			. += "It contains [UNIT_FORM_STRING(total_volume)] of <font color=[reagent_color]> [tag] [initial(material.name)].</font>"
 
 /obj/item/storage/crucible/process()
 	var/obj/machinery/light/fueled/smelter/smelter = loc

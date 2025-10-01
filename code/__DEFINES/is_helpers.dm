@@ -121,6 +121,14 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isweapon(A) (istype(A, /obj/item/weapon))
 
+#define isammo(A) (istype(A, /obj/item/ammo_casing))
+
+#define isreagentcontainer(A) (istype(A, /obj/item/reagent_containers))
+
+#define ismobholder(A) (istype(A, /obj/item/clothing/head/mob_holder))
+
+#define isfuse(A) (istype(A, /obj/item/fuse))
+
 #define isscabbard(A) (istype(A, /obj/item/weapon/scabbard))
 
 #define isstructure(A) (istype(A, /obj/structure))
@@ -175,9 +183,9 @@ GLOBAL_LIST_INIT(RATS_DONT_EAT, typecacheof(list(
 	#define is_gaffer_job(job_type) (istype(job_type, /datum/job/gaffer))
 // Peasantry
 	#define is_jester_job(job_type) (istype(job_type, /datum/job/jester))
-	#define is_adventurer_job(job_type) (istype(job_type, /datum/job/adventurer))
-	#define is_mercenary_job(job_type) (istype(job_type, /datum/job/mercenary))
-	#define is_pilgrim_job(job_type) (istype(job_type, /datum/job/pilgrim))
+	#define is_adventurer_job(job_type) (istype(job_type, /datum/job/advclass/adventurer))
+	#define is_mercenary_job(job_type) (istype(job_type, /datum/job/advclass/mercenary))
+	#define is_pilgrim_job(job_type) (istype(job_type, /datum/job/advclass/pilgrim))
 	#define is_vagrant_job(job_type) (istype(job_type, /datum/job/vagrant))
 //  Apprentices
 	#define is_gaffer_assistant_job(job_type) (istype(job_type, /datum/job/gaffer_assistant))
@@ -186,6 +194,9 @@ GLOBAL_LIST_INIT(RATS_DONT_EAT, typecacheof(list(
 		#define is_skeleton_knight_job(job_type) (istype(job_type, /datum/job/skeleton/knight))
 	#define is_rousman_job(job_type) (istype(job_type, /datum/job/rousman))
 	#define is_goblin_job(job_type) (istype(job_type, /datum/job/goblin))
+
+	#define is_zizolackey(mind) (mind.has_antag_datum(/datum/antagonist/zizocultist))
+	#define is_zizocultist(mind) (mind.has_antag_datum(/datum/antagonist/zizocultist/leader))
 
 // seemingly deprecated:
 //"Preacher" //as a job, there is an equivalent class

@@ -304,7 +304,7 @@
 
 	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop, /datum/intent/dagger/thrust)
 	name = "iron seme"
-	desc = "A broad iron dagger of ancient Lakkarian design. Popular amongst the indigenous elven tribes of western Lakkari."
+	desc = "A broad iron dagger of ancient Lakkarian design. Popular amongst the indigenous jungle elf tribes of the Lakkarian Rainforests."
 	icon = 'icons/roguetown/weapons/lakkari.dmi'
 	icon_state = "njora_iron"
 	melting_material = null
@@ -335,7 +335,7 @@
 /obj/item/weapon/knife/njora/steel
 	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop, /datum/intent/dagger/thrust)
 	name = "steel seme"
-	desc = "A broad steel dagger of ancient Lakkarian design. Popular amongst the indigenous elven tribes of western Lakkari."
+	desc = "A broad steel dagger of ancient Lakkarian design. Popular amongst the indigenous jungle elf tribes of the Lakkarian Rainforests."
 	icon = 'icons/roguetown/weapons/lakkari.dmi'
 	icon_state = "njora_steel"
 	melting_material = null
@@ -419,7 +419,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if (!HAS_TRAIT(H, TRAIT_ASSASSIN)) // Non-assassins don't like holding the profane dagger.
-			H.add_stress(/datum/stressevent/profane)
+			H.add_stress(/datum/stress_event/profane)
 			to_chat(M, "<span class='danger'>Your breath chills as you pick up the dagger. You feel a sense of morbid wrongness!</span>")
 			var/message = pick(
 				"<span class='danger'>Help me...</span>",

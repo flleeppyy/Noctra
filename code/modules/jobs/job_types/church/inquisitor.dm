@@ -15,27 +15,18 @@
 
 	allowed_races = list(SPEC_ID_HUMEN)
 
-	outfit = /datum/outfit/job/inquisitor
+	outfit = /datum/outfit/inquisitor
 	is_foreigner = TRUE
 	is_recognized = TRUE
+	antag_role = /datum/antagonist/purishep
 	cmode_music = 'sound/music/cmode/church/CombatInquisitor.ogg'
 
-/datum/job/inquisitor/after_spawn(mob/living/spawned, client/player_client)
-	..()
-	if(!spawned.mind)
-		return
-	if(spawned.mind.has_antag_datum(/datum/antagonist))
-		return
-	var/datum/antagonist/new_antag = new /datum/antagonist/purishep()
-	spawned.mind.add_antag_datum(new_antag)
-
-/datum/outfit/job/inquisitor
-	name = "Inquisitor"
-	jobtype = /datum/job/inquisitor
-	allowed_patrons = list(/datum/patron/psydon)
 	job_bitflag = BITFLAG_CHURCH
 
-/datum/outfit/job/inquisitor/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/inquisitor
+	name = "Inquisitor"
+
+/datum/outfit/inquisitor/pre_equip(mob/living/carbon/human/H)
 	..()
 	shirt = /obj/item/clothing/armor/gambeson/heavy/colored/dark
 	belt = /obj/item/storage/belt/leather/black
@@ -135,7 +126,7 @@
 	if(H.stat == DEAD)
 		to_chat(src, span_warning("[H] is dead already..."))
 		return
-	if(H.add_stress(/datum/stressevent/tortured))
+	if(H.add_stress(/datum/stress_event/tortured))
 		SEND_SIGNAL(src, COMSIG_TORTURE_PERFORMED, H)
 		var/static/list/torture_lines = list(
 			"CONFESS YOUR WRONGDOINGS!",
@@ -179,7 +170,7 @@
 	if(H.stat == DEAD)
 		to_chat(src, span_warning("[H] is dead already..."))
 		return
-	if(H.add_stress(/datum/stressevent/tortured))
+	if(H.add_stress(/datum/stress_event/tortured))
 		SEND_SIGNAL(src, COMSIG_TORTURE_PERFORMED, H)
 		var/static/list/faith_lines = list(
 			"DO YOU DENY PSYDON AND THE TEN?",
@@ -257,13 +248,13 @@
 			switch(interrogator_patron.associated_faith.type)
 				if(/datum/faith/psydon)
 					if(ispath(victim_patron.type, /datum/patron/divine) && victim_patron.type != /datum/patron/divine/necra) //lore
-						interrogator.add_stress(/datum/stressevent/torture_small_penalty)
+						interrogator.add_stress(/datum/stress_event/torture_small_penalty)
 					else if(victim_patron.type == /datum/patron/psydon/progressive)
-						interrogator.add_stress(/datum/stressevent/torture_small_penalty)
+						interrogator.add_stress(/datum/stress_event/torture_small_penalty)
 					else if(victim_patron.type == /datum/patron/godless/naivety)
-						interrogator.add_stress(/datum/stressevent/torture_small_penalty)
+						interrogator.add_stress(/datum/stress_event/torture_small_penalty)
 					else if(victim_patron.type == /datum/patron/psydon)
-						interrogator.add_stress(/datum/stressevent/torture_large_penalty)
+						interrogator.add_stress(/datum/stress_event/torture_large_penalty)
 
 		if(length(confessions))
 			if(torture) // Only scream your confession if it's due to torture.
@@ -336,12 +327,15 @@
 					if(/datum/patron/godless/defiant) //need better desc
 						held_confession.bad_type = "A DAMNED CHAINBREAKER"
 						held_confession.antag = "worshiper of nothing"
-					if( /datum/patron/godless/dystheist) //need better desc
+					if(/datum/patron/godless/dystheist) //need better desc
 						held_confession.bad_type = "A SPURNER OF THE DIVINE"
 						held_confession.antag = "worshiper of nothing"
-					if( /datum/patron/godless/naivety)
+					if(/datum/patron/godless/naivety)
 						held_confession.bad_type = "A IGNORANT FOOL"
 						held_confession.antag = "worshiper of nothing"
+					if(/datum/patron/godless/rashan)
+						held_confession.bad_type = "A FOLLOWER OF A FALSE GOD"
+						held_confession.antag = "worshiper of the false god, Rashan-Kahl"
 					if(/datum/patron/inhumen/baotha)
 						held_confession.bad_type = "A FOLLOWER OF THE REMORSELESS RUINER"
 						held_confession.antag = "worshiper of " + initial(antag_type:name)

@@ -200,36 +200,11 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
 	sleeved = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
 
-/obj/item/clothing/head/helmet/heavy/blkknight
-	name = "blacksteel helmet"
-	desc = "A helmet black as nite, with blue decorations. Instills fear upon those that gaze upon it."
-	icon_state = "bkhelm"
-	icon = 'icons/roguetown/clothing/special/blkknight.dmi'
-	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
-
 /obj/item/clothing/cloak/tabard/blkknight
 	name = "blood sash"
 	icon_state = "bksash"
 	icon = 'icons/roguetown/clothing/special/blkknight.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
-
-/obj/item/clothing/pants/platelegs/blk
-	name = "blacksteel legs"
-	icon_state = "bklegs"
-	icon = 'icons/roguetown/clothing/special/blkknight.dmi'
-	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
-	sleeved = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
-	anvilrepair = /datum/skill/craft/blacksmithing
-	smeltresult = /obj/item/ingot/blacksteel
-
-/obj/item/clothing/gloves/plate/blk
-	name = "blacksteel gauntlets"
-	icon_state = "bkgloves"
-	icon = 'icons/roguetown/clothing/special/blkknight.dmi'
-	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
-	sleeved = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
-	anvilrepair = /datum/skill/craft/blacksmithing
-	smeltresult = /obj/item/ingot/blacksteel
 
 /obj/item/clothing/neck/blkknight
 	name = "dragonscale necklace"
@@ -241,16 +216,6 @@
 	resistance_flags = FIRE_PROOF
 	sellprice = 666
 	static_price = TRUE
-
-/obj/item/clothing/shoes/boots/armor/blkknight
-	name = "blacksteel boots"
-	icon_state = "bkboots"
-	icon = 'icons/roguetown/clothing/special/blkknight.dmi'
-	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
-	sleeved = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
-	anvilrepair = /datum/skill/craft/blacksmithing
-	smeltresult = /obj/item/ingot/blacksteel
-
 
 /obj/item/clothing/cloak/volfmantle
 	name = "volf mantle"
@@ -312,3 +277,24 @@
 	item_state = "silktabard"
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	allowed_ages = ALL_AGES_LIST //placeholder until younglings have onmob sprites for this item
+
+/obj/item/clothing/cloak/shredded
+	name = "shredded cloak"
+	desc = "A shredded long cloak."
+	icon_state = "shredded"
+	item_state = "shredded"
+	alternate_worn_layer = CLOAK_BEHIND_LAYER
+	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
+	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
+	sleevetype = "shirt"
+	nodismemsleeves = TRUE
+	inhand_mod = TRUE
+	allowed_race = SPECIES_BASE_BODY
+
+/obj/item/clothing/cloak/pegasusknight
+	name = "pegasus knight tabard"
+	desc = "A quilted tabard worn by Lakkarian pegasus knights."
+	icon_state = "lakkaritabard"
+	item_state = "lakkaritabard"
+	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
+	allowed_race = SPECIES_BASE_BODY

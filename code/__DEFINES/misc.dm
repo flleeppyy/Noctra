@@ -19,6 +19,7 @@
 #define FEMALE_BOOB 	2
 
 //Human Overlays Indexes/////////
+#define SMELL_LAYER				52		//Hygiene
 #define REFLECTION_LAYER		51
 #define POTENCE_LAYER			50
 #define MUTATIONS_LAYER			49		//mutations. Tk headglows, cold resistance glow, etc
@@ -70,7 +71,7 @@
 #define BITE_LAYER				3
 #define FIRE_LAYER				2		//If you're on fire
 #define TURF_LAYER				1		//If you're on fire
-#define TOTAL_LAYERS			51		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS			52		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 
 #define BACK_CLOAK_SOUTH_LAYER		(BODY_BEHIND_LAYER+1)
 
@@ -513,5 +514,3 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define IGNORE_USER_DOING (1<<6)
 
 #define MESSAGE_ADMINS_ROLES list(/datum/job/lord, /datum/job/priest)
-
-GLOBAL_LIST_EMPTY(frenzy_list)

@@ -40,7 +40,7 @@
 
 /obj/item/weapon/polearm/halberd/bardiche/woodcutter/gorefeast/Initialize(mapload, ...)
 	. = ..()
-	AddElement(/datum/element/divine_intervention, /datum/patron/inhumen/graggar, PUNISHMENT_STRESS, /datum/stressevent/divine_punishment, TRUE)
+	AddElement(/datum/element/divine_intervention, /datum/patron/inhumen/graggar, PUNISHMENT_STRESS, /datum/stress_event/divine_punishment, TRUE)
 
 /obj/item/weapon/polearm/halberd/bardiche/woodcutter/gorefeast/pickup(mob/user)
 	. = ..()
@@ -118,7 +118,7 @@
 
 /obj/item/weapon/polearm/neant/Initialize(mapload, ...)
 	. = ..()
-	AddElement(/datum/element/divine_intervention, /datum/patron/inhumen/zizo, PUNISHMENT_BURN, /datum/stressevent/divine_punishment, TRUE)
+	AddElement(/datum/element/divine_intervention, /datum/patron/inhumen/zizo, PUNISHMENT_BURN, /datum/stress_event/divine_punishment, TRUE)
 
 /obj/item/weapon/polearm/neant/attack(mob/living/M, mob/living/user)
 	if(user.used_intent.tranged)
@@ -127,7 +127,7 @@
 
 /obj/item/weapon/polearm/neant/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!HAS_TRAIT(user, TRAIT_CABAL))
+	if(!HAS_TRAIT(user, TRAIT_CABAL) || !istype(user.patron, /datum/patron/inhumen/zizo))
 		return
 	if(user.used_intent?.tranged)
 		handle_magick(user, target)
@@ -252,7 +252,7 @@
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/turbulenta/Initialize(mapload, ...)
 	. = ..()
-	AddElement(/datum/element/divine_intervention, /datum/patron/inhumen/baotha, PUNISHMENT_STRESS, /datum/stressevent/divine_punishment, TRUE)
+	AddElement(/datum/element/divine_intervention, /datum/patron/inhumen/baotha, PUNISHMENT_STRESS, /datum/stress_event/divine_punishment, TRUE)
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/turbulenta/getonmobprop(tag)
 	if(tag)
@@ -381,7 +381,7 @@
 
 /obj/item/weapon/sword/long/pleonexia/Initialize(mapload, ...)
 	. = ..()
-	AddElement(/datum/element/divine_intervention, /datum/patron/inhumen/matthios, PUNISHMENT_STRESS, /datum/stressevent/divine_punishment, TRUE)
+	AddElement(/datum/element/divine_intervention, /datum/patron/inhumen/matthios, PUNISHMENT_STRESS, /datum/stress_event/divine_punishment, TRUE)
 
 /obj/item/weapon/sword/long/pleonexia/pre_attack(atom/A, mob/living/user, params)
 	if(!istype(user.used_intent, /datum/intent/plex_dash) || !HAS_TRAIT(user, TRAIT_MATTHIOS_EYES))

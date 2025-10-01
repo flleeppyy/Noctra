@@ -1,5 +1,14 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 #define UNIT_FORM_STRING(amount) (amount == 1 ? "ligula" : "ligulae")
+=======
+#define LIQUID_UNIT_NAME_SINGULAR "ligula"
+#define LIQUID_UNIT_NAME_PLURAL "ligulae"
+#define UNIT_FORM_STRING(amount) (amount == 1 ? LIQUID_UNIT_NAME_SINGULAR : LIQUID_UNIT_NAME_PLURAL)
+>>>>>>> vanderlin/main
 
+=======
+>>>>>>> vanderlin/main
 /proc/chem_recipes_do_conflict(datum/chemical_reaction/r1, datum/chemical_reaction/r2)
 	//do the non-list tests first, because they are cheaper
 	if(r1.required_container != r2.required_container)

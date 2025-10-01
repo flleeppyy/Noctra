@@ -588,7 +588,7 @@
 		return
 	if(ishuman(target))
 		var/mob/living/carbon/H = target
-		H.add_stress(/datum/stressevent/hug)
+		H.add_stress(/datum/stress_event/hug)
 		playsound(target.loc, pick('sound/vo/hug.ogg'), 100, FALSE, -1)
 
 		if(user.mind)
@@ -841,6 +841,43 @@
 	key_third_person = "pouts"
 	message = "pouts."
 	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/preen
+	key = "preen"
+	key_third_person = "preens"
+	message = "preens their feathers."
+	emote_type = EMOTE_AUDIBLE
+	COOLDOWN_DECLARE(time_to_next_preen)
+
+
+/mob/living/carbon/human/verb/emote_preen()
+	set hidden = TRUE
+	set name = "Preen"
+	set category = "Emotes"
+	emote("preen", intentional = TRUE)
+
+/datum/emote/living/preen/can_run_emote(mob/living/user, status_check = TRUE , intentional)
+	. = ..()
+	if(!isharpy(user))
+		return FALSE
+
+/datum/emote/living/preen/run_emote(mob/user, params, type_override, intentional, targetted)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!isharpy(H))
+			return
+		var/time_left = COOLDOWN_TIMELEFT(src, time_to_next_preen)
+		if(time_left)
+			to_chat(H, span_warning("I have preened my feathers recently! It has no effect on my hygiene."))
+		else
+			COOLDOWN_START(src, time_to_next_preen, HARPY_PREENING_COOLDOWN)
+			H.set_hygiene(HYGIENE_LEVEL_NORMAL)
+			if(prob(50))
+				var/preened_feather = /obj/item/natural/feather
+				new preened_feather(user.loc)
+
+
 
 /datum/emote/living/scream/painscream
 	key = "painscream"

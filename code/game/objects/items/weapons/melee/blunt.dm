@@ -103,7 +103,7 @@
 	hitsound = list('sound/combat/hits/blunt/woodblunt (1).ogg', 'sound/combat/hits/blunt/woodblunt (2).ogg')
 
 /datum/intent/mace/strike/heavy
-	penfactor = AP_CLUB_STRIKE+10
+	penfactor = AP_CLUB_HEAVY_STRIKE
 	swingdelay = 2
 	icon_state = "instrike"
 	misscost = 12
@@ -276,7 +276,8 @@
 	name = "spiked mace"
 	icon_state = "spikedmace"
 	max_integrity = 200
-
+	melting_material = /datum/material/iron
+	melt_amount = 150
 
 //................ Morningstar ............... //
 /obj/item/weapon/mace/steel/morningstar

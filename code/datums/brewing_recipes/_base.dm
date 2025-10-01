@@ -82,7 +82,7 @@
 	// Get brewing skill for the quality calculator
 	var/brewing_skill = 0
 	if(user.mind)
-		brewing_skill = user.get_skill_level(/datum/skill/craft/cooking) || 0
+		brewing_skill = user.get_skill_level(/datum/skill/craft/cooking) + user.get_inspirational_bonus() || 0
 
 	// Create quality calculator with the calculated quality
 	var/datum/quality_calculator/brewing/brew_calc = new(
@@ -150,7 +150,7 @@
 	// Get the user's brewing skill (with cooking as fallback)
 	var/brewing_skill = 0
 	if(user.mind)
-		brewing_skill = user.get_skill_level(/datum/skill/craft/cooking) || 0
+		brewing_skill = user.get_skill_level(/datum/skill/craft/cooking) + user.get_inspirational_bonus() || 0
 
 	// Use the quality calculator to determine final quality (matching cooking system)
 	var/datum/quality_calculator/brewing/brew_calc = new(
@@ -244,13 +244,13 @@
 		html += "<h3>Liquids Required</h3>"
 		for(var/atom/path as anything in needed_reagents)
 			var/count = needed_reagents[path]
-			html += "[FLOOR(count, 1)] [UNIT_FORM_STRING(FLOOR(count, 1))] of [initial(path.name)]<br>"
+			html += "[UNIT_FORM_STRING(FLOOR(count, 1))] of [initial(path.name)]<br>"
 		html += "<br>"
 
 	if(brewed_amount)
-		html += "Produces: [FLOOR((per_brew_amount * brewed_amount), 1)] [UNIT_FORM_STRING(FLOOR((per_brew_amount * brewed_amount), 1))] of [name]"
+		html += "Produces: [UNIT_FORM_STRING(FLOOR((per_brew_amount * brewed_amount), 1))] of [name]"
 	if(brewed_item)
-		html += "Produces:[icon2html(new brewed_item, user)] [(brewed_item_count)] [initial(brewed_item.name)]"
+		html += "Produces: [icon2html(new brewed_item, user)] [(brewed_item_count)] [initial(brewed_item.name)]"
 	html += {"
 		</div>
 		<div>

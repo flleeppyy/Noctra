@@ -160,6 +160,14 @@
 				/obj/item/natural/fibers = 1)
 	category = "Pants"
 
+/datum/repeatable_crafting_recipe/sewing/lakkarikilt
+	name = "padded kilt"
+	output = /obj/item/clothing/pants/trou/leather/quiltedkilt
+	requirements = list(/obj/item/natural/cloth = 4,
+				/obj/item/natural/fibers = 2)
+	category = "Pants"
+	craftdiff = 3
+
 /datum/repeatable_crafting_recipe/sewing/headband
 	name = "headband"
 	output = /obj/item/clothing/head/headband
@@ -257,6 +265,13 @@
 /datum/repeatable_crafting_recipe/sewing/sack
 	name = "sack hood"
 	output = /obj/item/clothing/head/menacing
+	requirements = list(/obj/item/natural/cloth = 3)
+	craftdiff = 1
+	category = "Hat"
+
+/datum/repeatable_crafting_recipe/sewing/sack
+	name = "dark sack hood"
+	output = /obj/item/clothing/head/dungeoneer
 	requirements = list(/obj/item/natural/cloth = 3)
 	craftdiff = 1
 	category = "Hat"
@@ -410,6 +425,15 @@
 	output = /obj/item/clothing/cloak/tabard
 	requirements = list(/obj/item/natural/cloth = 3,
 				/obj/item/natural/fibers = 1)
+	craftdiff = 2
+	category = "Cloak"
+
+/datum/repeatable_crafting_recipe/sewing/pegasusknight
+	name = "pegasus knight tabard"
+	output = /obj/item/clothing/cloak/pegasusknight
+	requirements = list(
+		/obj/item/natural/cloth = 2,
+		/obj/item/natural/fibers = 1,)
 	craftdiff = 2
 	category = "Cloak"
 
@@ -607,6 +631,17 @@
 	craftdiff = 3
 	category = "Cloak"
 
+<<<<<<< HEAD
+=======
+/datum/repeatable_crafting_recipe/sewing/cape/shredded
+	name = "shredded cloak"
+	output = /obj/item/clothing/cloak/shredded
+	requirements = list(/obj/item/natural/cloth = 2,
+				/obj/item/natural/fibers = 1)
+	craftdiff = 3
+	category = "Cloak"
+
+>>>>>>> vanderlin/main
 /datum/repeatable_crafting_recipe/sewing/guard_cape
 	name = "guard cape"
 	output = /obj/item/clothing/cloak/cape/guard
@@ -983,6 +1018,15 @@
 				/obj/item/natural/fibers = 1)
 	craftdiff = 4
 	category = "Cloak"
+
+/datum/repeatable_crafting_recipe/sewing/lakkarijupon
+	name = "lakkarian jupon"
+	output = /obj/item/clothing/armor/gambeson/heavy/lakkarijupon
+	requirements = list(/obj/item/natural/cloth = 4,
+				/obj/item/natural/fibers = 2,
+				/obj/item/ingot/iron = 1)
+	craftdiff = 4
+	category = "Armor"
 
 /*.............. recipes requiring skill 5 ..............*/
 

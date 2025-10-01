@@ -104,7 +104,7 @@
 	var/average_freshness = (ingredient_count > 0) ? (total_freshness / ingredient_count) : 0
 
 	// Get the initiator's cooking skill
-	var/cooking_skill = initiator.get_skill_level(/datum/skill/craft/cooking)
+	var/cooking_skill = initiator.get_skill_level(/datum/skill/craft/cooking) + initiator.get_inspirational_bonus()
 
 	// Use the quality calculator to determine final quality
 	var/datum/quality_calculator/cooking/cook_calc = new(
@@ -186,5 +186,5 @@
 	var/result_amount = reagent_requirements[first]
 	if(water_conversion > 0)
 		result_amount = CEILING((result_amount * water_conversion), 1)
-	html += "[result_amount] [UNIT_FORM_STRING(result_amount)] of [initial(created_reagent.name)]<br>"
+	html += "[UNIT_FORM_STRING(result_amount)] of [initial(created_reagent.name)]<br>"
 	return html

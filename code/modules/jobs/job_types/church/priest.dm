@@ -18,14 +18,14 @@
 
 	allowed_races = RACES_PLAYER_NONDISCRIMINATED
 
-	outfit = /datum/outfit/job/priest
+	outfit = /datum/outfit/priest
 	spells = list(
 		/datum/action/cooldown/spell/undirected/list_target/convert_role/templar,
 		/datum/action/cooldown/spell/undirected/list_target/convert_role/acolyte,
 		/datum/action/cooldown/spell/undirected/list_target/convert_role/churchling,
 	)
 
-/datum/outfit/job/priest/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/priest/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.virginity = TRUE
 	H.verbs |= /mob/living/carbon/human/proc/coronate_lord
@@ -170,7 +170,7 @@
 
 		for(var/mob/living/carbon/human/H in GLOB.human_list)
 			if(H.real_name == inputty)
-				if(H.advjob == "Faceless One")
+				if(H.job == "Faceless One")
 					to_chat(src, span_danger("I wasn't able to do that!"))
 					return FALSE
 				H.cleric?.excommunicate()
@@ -193,17 +193,17 @@
 			priority_announce("[real_name] has forgiven [inputty]. Once more walk in the light!", title = "Hail the Ten!", sound = 'sound/misc/bell.ogg')
 			for(var/mob/living/carbon/H in GLOB.player_list)
 				if(H.real_name == inputty)
-					H.remove_stress(/datum/stressevent/psycurse)
+					H.remove_stress(/datum/stress_event/psycurse)
 			return
 		if(length(GLOB.tennite_schisms))
 			to_chat(src, span_warning("I cannot curse anyone during the schism!"))
 			return FALSE
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
 			if(H.real_name == inputty)
-				if(H.advjob == "Faceless One")
+				if(H.job == "Faceless One")
 					to_chat(src, span_danger("I wasn't able to do that!"))
 					return FALSE
-				H.add_stress(/datum/stressevent/psycurse)
+				H.add_stress(/datum/stress_event/psycurse)
 				GLOB.heretical_players += inputty
 				priority_announce("[real_name] has put Xylix's curse of woe on [inputty] for offending the church!", title = "SHAME", sound = 'sound/misc/excomm.ogg')
 				break

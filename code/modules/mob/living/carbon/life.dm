@@ -43,7 +43,6 @@
 					heart_attacking = FALSE
 
 		handle_sleep()
-
 		handle_brain_damage()
 
 	check_cremation()
@@ -147,7 +146,7 @@
 			if(current_shock < 160) // Only add stress if not in shock-induced numbness
 				// High endurance characters are less stressed by pain
 				if(prob(max(20, 100 - (STAEND * 2)))) // 2% less likely per endurance point (40% at 20 )
-					add_stress(/datum/stressevent/painmax)
+					add_stress(/datum/stress_event/painmax)
 
 /mob/living/carbon/proc/handle_roguebreath()
 	return
@@ -166,7 +165,7 @@
 		var/turf/open/T = loc
 		if(reagents && T.pollution)
 			T.pollution.breathe_act(src)
-			if(HAS_TRAIT(src, TRAIT_NOSTINK))
+			if(HAS_TRAIT(src, TRAIT_DEADNOSE))
 				return
 			if(next_smell <= world.time)
 				next_smell = world.time + 30 SECONDS
@@ -208,7 +207,7 @@
 		if(istype(loc, /turf/open/water/bath))
 			if(!wear_armor && !wear_shirt && !wear_pants)
 				var/mob/living/carbon/V = src
-				V.add_stress(/datum/stressevent/bathwater)
+				V.add_stress(/datum/stress_event/bathwater)
 
 /mob/living/carbon/proc/get_complex_pain()
 	var/total_pain = 0
@@ -608,9 +607,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(jitteriness)
 		do_jitter_animation(jitteriness)
 		jitteriness = max(jitteriness - restingpwr, 0)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "jittery", /datum/mood_event/jittery)
+		add_stress(/datum/stress_event/jittery)
 	else
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "jittery")
+		remove_stress(/datum/stress_event/jittery)
 
 	if(stuttering)
 		stuttering = max(stuttering-1, 0)
@@ -638,7 +637,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			jitteriness = max(jitteriness - 3, 0)
 			apply_status_effect(/datum/status_effect/buff/drunk)
 		else
-			remove_stress(/datum/stressevent/drunk)
+			remove_stress(/datum/stress_event/drunk)
 		if(drunkenness >= 11 && slurring < 5)
 			slurring += 1.2
 		if(drunkenness >= 41)

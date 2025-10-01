@@ -7,7 +7,7 @@
 	spawn_positions = 1
 
 	allowed_races = RACES_PLAYER_ALL
-	//I say we let all races be the gaffer, this is job concerns the adventurers and mercs, and those come in all types and sizes,
+	//I say we let all species be the gaffer, this is job concerns the adventurers and mercs, and those come in all types and sizes,
 	//so it fits better with the wild cards that is this demographic of people
 	//having said that I am gate keeping the moment felinids are in the damn game
 	allowed_ages = list(AGE_MIDDLEAGED,AGE_OLD, AGE_IMMORTAL) //AGE_OLD with the ring on? I say unlikely - clown
@@ -19,7 +19,7 @@
 
 	display_order = JDO_GAFFER
 	cmode_music = 'sound/music/cmode/towner/CombatGaffer.ogg'
-	outfit = /datum/outfit/job/gaffer
+	outfit = /datum/outfit/gaffer
 	give_bank_account = 20
 	min_pq = 8
 	bypass_lastclass = TRUE
@@ -27,7 +27,7 @@
 
 	spells = list(/datum/action/cooldown/spell/undirected/list_target/convert_role/mercenary)
 
-/datum/outfit/job/gaffer/pre_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/gaffer/pre_equip(mob/living/carbon/human/H, visuals_only)
 	..()
 
 
@@ -40,7 +40,7 @@
 	shirt = /obj/item/clothing/shirt/tunic/colored/black
 	wrists = /obj/item/clothing/wrists/bracers/leather/advanced
 	armor = /obj/item/clothing/armor/leather/hide
-	if(!visualsOnly)
+	if(!visuals_only)
 		ring = /obj/item/clothing/ring/gold/burden
 	else
 		ring = /obj/item/clothing/ring/gold

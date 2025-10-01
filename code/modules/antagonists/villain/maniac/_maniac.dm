@@ -20,7 +20,7 @@
 	/// Traits we apply to the owner
 	innate_traits = list(
 		TRAIT_DECEIVING_MEEKNESS,
-		TRAIT_NOSTINK,
+		TRAIT_DEADNOSE,
 		TRAIT_EMPATH,
 		TRAIT_STEELHEARTED,
 		TRAIT_NOMOOD,
@@ -123,7 +123,7 @@ GLOBAL_VAR_INIT(maniac_highlander, 0) // THERE CAN ONLY BE ONE!
 				heart.inscryption_keys = list()
 				heart.maniacs2wonder_ids = list()
 				heart.maniacs = list()
-			dreamer.remove_stress(/datum/stressevent/saw_wonder)
+			dreamer.remove_stress(/datum/stress_event/saw_wonder)
 			dreamer.remove_curse(/datum/curse/zizo)
 			RegisterSignal(dreamer, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 		//	dreamer.remove_client_colour(/datum/client_colour/maniac_marked)
@@ -217,7 +217,7 @@ GLOBAL_VAR_INIT(maniac_highlander, 0) // THERE CAN ONLY BE ONE!
 		trey_liam.set_hair_style(/datum/sprite_accessory/hair/head/thickcurly, FALSE)
 		trey_liam.set_facial_hair_style(/datum/sprite_accessory/hair/facial/know, FALSE)
 		trey_liam.age = AGE_OLD
-		trey_liam.equipOutfit(/datum/outfit/job/treyliam)
+		trey_liam.equipOutfit(/datum/outfit/treyliam)
 		trey_liam.regenerate_icons()
 		trey_liam.update_body_parts()
 		for(var/obj/structure/chair/chair in spawnturf)
@@ -272,7 +272,7 @@ GLOBAL_VAR_INIT(maniac_highlander, 0) // THERE CAN ONLY BE ONE!
 		cull_competitors(trey_liam)
 		SEND_SOUND(trey_liam, 'sound/villain/dreamer_win.ogg')
 		trey_liam.SetSleeping(25 SECONDS)
-		trey_liam.add_stress(/datum/stressevent/maniac_woke_up)
+		trey_liam.add_stress(/datum/stress_event/maniac_woke_up)
 		sleep(1.5 SECONDS)
 		to_chat(trey_liam, span_deadsay("<span class='reallybig'>... WHERE AM I? ...</span>"))
 		sleep(1.5 SECONDS)
